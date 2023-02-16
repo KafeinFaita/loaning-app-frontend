@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { NavLink } from "react-router-dom";
-import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 
-const MobileNav = () => {
+const MobileNav = ({ links }) => {
 
     const [nav, setNav] = useState(false);
 
@@ -11,26 +11,27 @@ const MobileNav = () => {
     }
 
     return (
-        <nav className="flex justify-between p-7 bg-green-100">
+        <nav className="flex justify-between p-7 bg-green-100 md:hidden">
             <h1>LOGO</h1>
 
             <div onClick={handleNav}>
                 {nav ? <AiOutlineClose className='md:hidden'/> : <AiOutlineMenu className='md:hidden'/>}
             </div>
 
-            <div className={nav ? "fixed h-full border-r border-r-gray-800 w-[60%] bg-slate-800 -left-1 top-20 z-10 md:hidden" : "fixed -left-96"}>
-                <p>Welcome, User!</p>
+            <div className={nav ? "fixed h-full border-r border-r-gray-800 w-[60%] bg-gray-200 -left-1 top-20 z-10 md:hidden p-8" : "fixed -left-96"}>
+                <p className='mb-16'>Welcome, User!</p>
 
-                <div>
-                    <NavLink to="" className="text-white">Home</NavLink>
-                    <NavLink to="login">Login</NavLink>
+                <div className='flex flex-col gap-4'>
+            {links.map(link => {
+                const Icon = link.icon;
+                return(
+                    <NavLink to={link.url} onClick={handleNav} key={link.text}><Icon className="inline-block"/> {link.text}</NavLink>
+                )
+                
+            })}
                 </div>
                 
             </div>
-            {/* <div className="flex gap-4">
-                <NavLink index>Home</NavLink>
-                <NavLink to="login">Login</NavLink>
-            </div> */}
         </nav>
     )
 }

@@ -1,15 +1,24 @@
 import { Outlet } from "react-router-dom";
 import MobileNav from './components/MobileNav';
 import DesktopNav from "./components/DesktopNav";
+import { FaHandHoldingUsd, FaHome, FaMoneyBillWave, FaColumns, FaListAlt, FaUser } from "react-icons/fa";
 
 const Layout = () => {
+    const links = [
+        { url: "", icon: FaHome, text: "Home" },
+        { url: "loans", icon: FaHandHoldingUsd, text: "Loans" },
+        { url: "payments", icon: FaMoneyBillWave, text: "Payments" },
+        { url: "loan-plans", icon: FaColumns, text: "Loan Plans" },
+        { url: "loan-types", icon: FaListAlt, text: "Loan Types" },
+        { url: "users", icon: FaUser, text: "Users" }
+    ]
     return (
-        <div>
-            <MobileNav />
-            <div className="App flex bg-red-200">
-                {/* sidebar for desktop */}
-                <DesktopNav />
-                <div className='md:w-[70%] lg:w-[75%] xl:w-[80%] bg-yellow-100 p-12'>
+        <div className="h-screen">
+            <MobileNav links={links}/>
+            <div className="App flex">
+                <DesktopNav links={links}/>
+                <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] h-screen'>
+                    <div className="bg-red-200 h-12 max-md:hidden"></div>
                     <Outlet />
                 </div>
                 

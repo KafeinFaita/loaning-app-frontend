@@ -1,6 +1,8 @@
 const LoanPlans = () => {
     return (
-        <h1>LOAN PLANS</h1>
+        <div>
+            <h1>lorem100</h1>
+        </div>
     )
 }
 
