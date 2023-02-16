@@ -5,7 +5,7 @@ import { config } from 'dotenv';
 // Call the `config` method if we're in a development environment
 if (process.env.NODE_ENV !== 'production') {
   config();
-  console.log(process.env.NODE_ENV)
+  console.log('test')
 }
 
 // https://vitejs.dev/config/
@@ -16,6 +16,7 @@ export default defineConfig({
       '/api': {
         target: process.env.API_URL,
         changeOrigin: true,
+        secure: false,
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }

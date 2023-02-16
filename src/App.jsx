@@ -10,7 +10,6 @@ function App() {
     async function fetchData() {
       try {
         const response = await axios.get('/api');
-        console.log(response)
         setMsg(response.data.msg)
         
       } catch (err) {
