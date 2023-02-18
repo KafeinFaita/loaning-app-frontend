@@ -79,7 +79,7 @@ const RoleCreate = () => {
     return (
         <form>
             <label htmlFor="role_title">
-                Role Title: <input type="text" name="title" id="role_title" onChange={handleTitle}/>
+                Role Title: <input type="text" name="title" id="role_title" onChange={handleTitle} className="border border-gray-800 rounded-lg" />
             </label>
 
             <div>
@@ -106,7 +106,7 @@ const RoleCreate = () => {
                 </div>
             </div>
 
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleSubmit} className="border border-black p-2">Submit</button>
         </form>
     )
 }

@@ -12,6 +12,8 @@ import Users from './pages/Users';
 import MainLayout from './layouts/MainLayout';
 import RoleLayout from './layouts/RoleLayout';
 
+import rolesLoader from './loaders/rolesLoader';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -23,7 +25,7 @@ const router = createBrowserRouter(
         <Route path="loan-types" element={<LoanTypes />} />
         <Route path="loan-plans" element={<LoanPlans />} />
         <Route path="roles" element={<RoleLayout />} >
-          <Route index element={<RoleIndex />} />
+          <Route index element={<RoleIndex />} loader={rolesLoader} />
           <Route path="create" element={<RoleCreate />} />
         </Route>
         <Route path="users" element={<Users />} />
