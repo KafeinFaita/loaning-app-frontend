@@ -1,6 +1,12 @@
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+export const roleCreateLoader = async () => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`);
+
+    return response;
+}
  
 const RoleCreate = () => {
     const navigate = useNavigate();
