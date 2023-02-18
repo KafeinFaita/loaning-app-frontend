@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import MobileNav from './components/MobileNav';
-import DesktopNav from "./components/DesktopNav";
-import { FaHandHoldingUsd, FaHome, FaMoneyBillWave, FaColumns, FaListAlt, FaUser } from "react-icons/fa";
+import MobileNav from '../components/MobileNav';
+import DesktopNav from "../components/DesktopNav";
+import { FaHandHoldingUsd, FaHome, FaMoneyBillWave, FaColumns, FaListAlt, FaPeopleArrows, FaUser } from "react-icons/fa";
 
 const Layout = () => {
     const links = [
@@ -10,6 +10,7 @@ const Layout = () => {
         { url: "payments", icon: FaMoneyBillWave, text: "Payments" },
         { url: "loan-plans", icon: FaColumns, text: "Loan Plans" },
         { url: "loan-types", icon: FaListAlt, text: "Loan Types" },
+        { url: "roles", icon: FaPeopleArrows, text: "Roles" },
         { url: "users", icon: FaUser, text: "Users" }
     ]
     return (
