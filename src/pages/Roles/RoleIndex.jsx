@@ -27,7 +27,7 @@ const Roles = () => {
                     <tr key={role.roleId} className="bg-gray-400"> 
                         <td>{role.title}</td>
                         <td>
-                            <Link to={role.roleId} className="text-white bg-gray-700 p-1 text-xs mx-2">Edit Role</Link>
+                            <Link to={role.roleId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Role Details</Link>
                             <button className="text-white bg-gray-700 p-1 text-xs" role_id={role.roleId} onClick={handleDelete}>Delete Role</button>
                         </td>
                     </tr>
