@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, Link } from 'react-router-dom';
 import axios from 'axios'
 
 export const roleShowLoader = async ({ params }) => {
@@ -52,6 +52,8 @@ const RoleShow = () => {
         )
     })}
             </ul>
+
+            <Link to="edit">Edit this role</Link>
         </div>
     )
 }

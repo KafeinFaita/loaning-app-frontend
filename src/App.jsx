@@ -8,10 +8,13 @@ import LoanPlans from './pages/LoanPlans';
 import RoleIndex from './pages/Roles/RoleIndex';
 import RoleCreate, { roleCreateLoader } from './pages/Roles/RoleCreate';
 import RoleShow, { roleShowLoader } from './pages/Roles/RoleShow'
-import Users from './pages/Users';
+import RoleEdit from './pages/Roles/RoleEdit';
+import UserIndex from './pages/Users/UserIndex';
 
 import MainLayout from './layouts/MainLayout';
 import RoleLayout from './layouts/RoleLayout';
+import RoleShowLayout from './layouts/RoleShowLayout';
+import UserLayout from './layouts/UserLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,9 +29,14 @@ const router = createBrowserRouter(
         <Route path="roles" element={<RoleLayout />} >
           <Route index element={<RoleIndex />} loader={roleCreateLoader} />
           <Route path="create" element={<RoleCreate />} />
-          <Route path=":id" element={<RoleShow />} loader={roleShowLoader} />
+          <Route path=":id" element={<RoleShowLayout />}  >
+            <Route index element={<RoleShow />} loader={roleShowLoader} />
+            <Route path="edit" element={<RoleEdit />} loader={roleShowLoader}/>
+          </Route>
         </Route>
-        <Route path="users" element={<Users />} />
+        <Route path="users" element={<UserLayout />}>
+          <Route index element={<UserIndex />} loader={roleShowLoader} />
+        </Route>
       </Route>
     </>
     
