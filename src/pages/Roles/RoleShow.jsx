@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const roleShowLoader = async ({ params }) => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${params.id}`);
+    console.log(response)
     return response.data;
 }
 
