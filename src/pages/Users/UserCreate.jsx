@@ -1,8 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const UserCreate = () => {
-
+    const navigate = useNavigate();
     const roles = useLoaderData();
 
     const userFields = [
@@ -31,13 +31,14 @@ const UserCreate = () => {
                 username: e.target.username.value,
                 password: e.target.password.value,
                 lastName: e.target.lastName.value,
-                firstName: e.target.password.value,
+                firstName: e.target.firstName.value,
                 middleName: e.target.middleName.value,
                 address: e.target.address.value,
                 email: e.target.email.value,
                 roles
             });
             console.log(response);
+            navigate('/dashboard/users');
         } catch (error) {
             throw error
         }
@@ -45,15 +46,13 @@ const UserCreate = () => {
     }
 
     return (
-        <form className="flex flex-wrap gap-6 flex-col" onSubmit={handleSubmit}>
+        <form className="flex flex-wrap gap-6 flex-col bg-red-100" onSubmit={handleSubmit}>
 {userFields.map(field => {
     return (
-        <>
-            <label htmlFor={field.nameId} className="w-full">
-                {field.title}
-                <input type={field.inputType} name={field.nameId} id={field.nameId} className="block border border-gray-800 w-full"/>
-            </label>
-        </>
+        <label htmlFor={field.nameId} className="w-full max-w-xs">
+            {field.title}
+            <input type={field.inputType} name={field.nameId} id={field.nameId} className="block border border-gray-800 w-full"/>
+        </label>   
     )
     })
 
@@ -63,7 +62,7 @@ const UserCreate = () => {
         {roles.data.map(role => {
             return (
                 <label htmlFor="role">
-                    <input type="checkbox" name="role" value={role.roleId} />
+                    <input type="checkbox" name="role" value={role._id} />
                     {role.title}
                 </label>
             )

@@ -9,7 +9,7 @@ import RoleIndex from './pages/Roles/RoleIndex';
 import RoleCreate, { roleCreateLoader } from './pages/Roles/RoleCreate';
 import RoleShow, { roleShowLoader } from './pages/Roles/RoleShow'
 import RoleEdit from './pages/Roles/RoleEdit';
-import UserIndex from './pages/Users/UserIndex';
+import UserIndex, { userIndexLoader } from './pages/Users/UserIndex';
 import UserCreate from './pages/Users/UserCreate';
 
 import MainLayout from './layouts/MainLayout';
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
           </Route>
         </Route>
         <Route path="users" element={<UserLayout />}>
-          <Route index element={<UserIndex />}  />
+          <Route index element={<UserIndex />} loader={userIndexLoader} />
           <Route path="create" element={<UserCreate /> } loader={roleCreateLoader} />
         </Route>
       </Route>
