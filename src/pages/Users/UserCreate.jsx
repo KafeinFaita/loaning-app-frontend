@@ -67,19 +67,6 @@ const UserCreate = () => {
                 </label>
             )
         })}
-                
-                {/* <label htmlFor="" className="mr-4">
-                    <input type="checkbox" name="" id="" />
-                    Administrator
-                </label>
-                <label htmlFor="" className="mr-4">
-                    <input type="checkbox" name="" id="" />
-                    Staff
-                </label>
-                <label htmlFor="">
-                    <input type="checkbox" name="" id="" />
-                    Member
-                </label> */}
             </div>
 
             <input type="submit" value="Submit" className="text-white bg-gray-700 p-2 w-24"/>
