@@ -10,9 +10,9 @@ const UserShow = () => {
                 <p>Full name: {user.firstName} {user.middleName} {user.lastName}</p>
                 <p>Address: {user.address}</p>
                 <p>Email: {user.email}</p>
-                <p>Date Registered: {new Date(user.createdAt).toLocaleString()}</p>
+                <p>Member Since: {new Date(user.createdAt).toLocaleString()}</p>
             </div>
-            <Link to="edit">Edit this user</Link>
+            <Link to="edit" className='bg-gray-700 text-white p-2 mt-5 inline-block'>Edit this user</Link>
         </div>
     )
 }

@@ -55,18 +55,19 @@ const UserEdit = () => {
         )})
     }
 
+            <p className='pt-5'>Select roles for this user</p>
     {roles.map(role => {
         const hasRole = user.roles.find(userRole => role._id === userRole._id)
      
         return (
-            <label htmlFor="role">
+            <label htmlFor="role" className='mr-3'>
                 <input type="checkbox" name="role" value={role._id} defaultChecked={hasRole ? true: false} />
                 {role.title}
             </label>
         )
     })}
 
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" className='block bg-gray-700 text-white p-2 mt-5'/>
         </form>
     )
 }
