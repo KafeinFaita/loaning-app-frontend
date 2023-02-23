@@ -23,6 +23,8 @@ import LoanTypeLayout from './layouts/LoanTypeLayout';
 import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
+import { AuthProvider } from './contexts/AuthContext';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -54,7 +56,7 @@ const router = createBrowserRouter(
         <Route path="users" element={<UserLayout />}>
           <Route index element={<UserIndex />} loader={userIndexLoader} />
           <Route path=":id" element={<PageShowLayout />}>
-            <Route index element={<UserShow /> } loader={userShowLoader}/>
+            <Route index element={<UserShow /> } />
             <Route path="edit" element={<UserEdit />} loader={UserEditLoader} />
           </Route>
           <Route path="create" element={<UserCreate /> } loader={roleCreateLoader} />
@@ -67,7 +69,10 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+    
   )
 }
 

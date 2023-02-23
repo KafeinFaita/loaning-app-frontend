@@ -1,14 +1,41 @@
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import AuthContext from '../contexts/AuthContext';
 import { AiOutlineMail, AiOutlineLock } from 'react-icons/ai';
-// import { FaMoneyBill } from 'react-icons/fa';
 
 const Login = () => {
+    const navigate = useNavigate();
+    const { setAuthUser } = useContext(AuthContext);
+    const [error, setError] = useState('');
+
+    const handleLogin = async e => {
+        e.preventDefault();
+        setError('');
+        try {
+            const user = await axios.post(`${import.meta.env.VITE_API_URL}/api/`, {
+                username: e.target.username.value,
+                password: e.target.password.value
+            }, {
+                withCredentials: true
+            });
+            if (user.data.error) {
+                return setError(user.data.error);
+            }
+            setAuthUser(user.data);
+            navigate('/dashboard');
+        } catch (error) {
+            throw error;
+        }
+    }
+
     return (
         <div className="flex justify-center items-center h-screen bg-green-300">
-            <form className="flex flex-col gap-5 items-center justify-center border border-gray-400 p-16">
+            <form className="flex flex-col gap-5 items-center justify-center border border-gray-400 p-16" onSubmit={handleLogin}>
                 <h1 className='text-4xl'>LOGIN</h1>
-                <label htmlFor="email">
+                <label htmlFor="username">
                     <AiOutlineMail className='inline-block mr-2'/>
-                    <input type="email" name="email" id="email" placeholder="E-mail" />
+                    <input type="text" name="username" id="email" placeholder="Username" />
                 </label>
 
                 <label htmlFor="password">
@@ -17,6 +44,8 @@ const Login = () => {
                 </label>
                 
                 <input type="submit" value="Login" className="bg-blue-300 w-3/5"/>
+
+                <p className={error ? "block italic text-red-600" : "hidden"}>Invalid username and/or password</p>
             </form>
         </div>
     )
