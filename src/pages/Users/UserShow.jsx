@@ -12,7 +12,7 @@ const UserShow = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${id}`, { withCredentials: true });
                 setLoading(false);
                 setUser(response.data);
             } catch (error) {

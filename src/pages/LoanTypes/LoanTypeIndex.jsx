@@ -11,7 +11,7 @@ const LoanTypeIndex = () => {
         const typeId = e.target.getAttribute('type_id');
 
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/loan-types/${typeId}`);
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/loan-types/${typeId}`, { withCredentials: true });
             navigate('/dashboard/loan-types', { replace: true });
         } catch (error) {
             throw error

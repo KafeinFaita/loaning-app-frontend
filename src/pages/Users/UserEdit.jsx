@@ -35,7 +35,7 @@ const UserEdit = () => {
                 address: e.target.address.value,
                 email: e.target.email.value,
                 roles
-            });
+            }, { withCredentials: true });
             console.log(response);
             navigate(`/dashboard/users/${user.userId}`);
         } catch (error) {

@@ -8,7 +8,7 @@ const Roles = () => {
     const handleDelete = async e => {
         const roleId = e.target.getAttribute('role_id');
 
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/roles/${roleId}`);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/roles/${roleId}`, { withCredentials: true });
         navigate('/dashboard/roles', { replace: true });
     }
 

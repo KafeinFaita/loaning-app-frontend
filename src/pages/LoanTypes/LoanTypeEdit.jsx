@@ -13,7 +13,7 @@ const LoanTypeEdit = () => {
                 name: e.target.name.value,
                 maxLoanAmount: e.target.maxLoanAmount.value,
                 interestRate: e.target.interestRate.value
-            })
+            }, { withCredentials: true })
             console.log(response)
             navigate(`/dashboard/loan-types/${loanType.loanTypeId}`);
         } catch (error) {

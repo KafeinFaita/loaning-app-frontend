@@ -36,7 +36,7 @@ const UserCreate = () => {
                 address: e.target.address.value,
                 email: e.target.email.value,
                 roles
-            });
+            }, { withCredentials: true });
             console.log(response);
             navigate('/dashboard/users');
         } catch (error) {

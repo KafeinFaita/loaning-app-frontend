@@ -17,7 +17,7 @@ const LoanTypeShow = () => {
 
 export const loanTypeShowLoader = async ({ params }) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types/${params.id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types/${params.id}`, { withCredentials: true });
         return response.data;
     } catch (error) {
         throw error;

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const roleCreateLoader = async () => {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`, { withCredentials: true });
     console.log(response)
     return response;
 }
@@ -53,7 +53,7 @@ const RoleCreate = () => {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/roles`, {
                 title: titleRef.current,
                 privileges: filteredPrivileges
-            })
+            }, { withCredentials: true })
             console.log(response.data)
             navigate('/dashboard/roles')
             

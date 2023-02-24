@@ -2,7 +2,7 @@ import { useLoaderData, Link } from 'react-router-dom';
 import axios from 'axios'
 
 export const roleShowLoader = async ({ params }) => {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${params.id}`);
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${params.id}`, { withCredentials: true });
     console.log(response)
     return response.data;
 }

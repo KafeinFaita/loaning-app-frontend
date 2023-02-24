@@ -11,7 +11,7 @@ const Users = () => {
         const userId = e.target.getAttribute('user_id');
 
         try {
-            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${userId}`);
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, { withCredentials: true });
             navigate('/dashboard/users', { replace: true });
         } catch (error) {
             throw error
