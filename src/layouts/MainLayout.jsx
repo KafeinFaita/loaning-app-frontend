@@ -21,28 +21,28 @@ const Layout = () => {
         { url: "users", icon: FaUser, text: "Users" }
     ];
 
-    // useEffect(() => {
-    //     const fetchData = async() => {
-    //         try {
-    //             const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
-    //                 withCredentials: true
-    //             });
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
+                    withCredentials: true
+                });
             
-    //             if (user.data.error) {
+                if (user.data.error) {
                 
-    //                 return navigate('/');
-    //             }
-    //             setAuthUser(user.data);
-    //         } catch (error) {
-    //             throw error;
-    //         }
+                    return navigate('/');
+                }
+                setAuthUser(user.data);
+            } catch (error) {
+                throw error;
+            }
             
-    //     }
-    //     if (!authUser) {
-    //         fetchData()
-    //     }
+        }
+        if (!authUser) {
+            fetchData()
+        }
         
-    // }, [])
+    }, [])
 
     if (authUser) {
         return (
