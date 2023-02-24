@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import MobileNav from '../components/MobileNav';
@@ -9,6 +9,7 @@ import AuthContext from "../contexts/AuthContext";
 
 
 const Layout = () => {
+    const navigate = useNavigate();
     const { authUser, setAuthUser } = useContext(AuthContext);
     const links = [
         { url: "", icon: FaHome, text: "Home" },
@@ -22,32 +23,42 @@ const Layout = () => {
 
     useEffect(() => {
         const fetchData = async() => {
+            if (!authUser) {}
             try {
                 const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
                     withCredentials: true
                 });
-                console.log(user.data)
+                setAuthUser(user.data);
             } catch (error) {
-                console.log('oh no')
+                navigate('/');
             }
             
         }
-
-        fetchData()
+        if (!authUser) {
+            fetchData()
+        }
+        
     }, [])
 
-    return (
-        <div className="min-h-full">
-            <MobileNav links={links}/>
-            <div className="App flex h-full">
-                <DesktopNav links={links}/>
-                <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] grow h-full'>
-                    <div className="bg-red-200 h-12 max-md:hidden"></div>
-                    <Outlet />
+    if (authUser) {
+        return (
+            <div className="min-h-full">
+                <MobileNav links={links}/>
+                <div className="App flex h-full">
+                    <DesktopNav links={links}/>
+                    <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] grow h-full'>
+                        <div className="bg-red-200 h-12 max-md:hidden"></div>
+                        <Outlet />
+                    </div>
                 </div>
             </div>
-        </div>
+        )
+    }
+
+    return (
+        <h1>PLEASE WAIT</h1>
     )
+    
 }
 
 export default Layout;

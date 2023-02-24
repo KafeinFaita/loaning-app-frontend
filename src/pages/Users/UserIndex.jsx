@@ -53,7 +53,9 @@ const Users = () => {
 
 export const userIndexLoader = async () => {
     try {
-        const users = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`);
+        const users = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
+            withCredentials: true
+        });
         return users.data;
     } catch (error) {
         throw error
