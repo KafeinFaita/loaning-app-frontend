@@ -16,7 +16,7 @@ const Login = () => {
         const fetchData = async() => {
             try {
                 const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, { withCredentials: true });
-                if (user) {
+                if (!user.data.error) {
                     navigate('/dashboard');
                 }
             } catch (error) {

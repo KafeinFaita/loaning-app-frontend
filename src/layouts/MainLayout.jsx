@@ -23,14 +23,18 @@ const Layout = () => {
 
     useEffect(() => {
         const fetchData = async() => {
-            if (!authUser) {}
             try {
                 const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
                     withCredentials: true
                 });
+            
+                if (user.data.error) {
+                
+                    return navigate('/');
+                }
                 setAuthUser(user.data);
             } catch (error) {
-                navigate('/');
+                throw error;
             }
             
         }
