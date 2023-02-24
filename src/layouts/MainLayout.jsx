@@ -15,7 +15,7 @@ const Layout = () => {
         { url: "", icon: FaHome, text: "Home" },
         { url: "loans", icon: FaHandHoldingUsd, text: "Loans" },
         { url: "payments", icon: FaMoneyBillWave, text: "Payments" },
-        { url: "loan-plans", icon: FaColumns, text: "Loan Plans" },
+        { url: "loan-grid", icon: FaColumns, text: "Loan Grid" },
         { url: "loan-types", icon: FaListAlt, text: "Loan Types" },
         { url: "roles", icon: FaPeopleArrows, text: "Roles" },
         { url: "users", icon: FaUser, text: "Users" }

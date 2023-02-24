@@ -3,7 +3,6 @@ import Login from "./pages/Login";
 import Home from './pages/Home';
 import Loans from './pages/Loans';
 import Payments from './pages/Payments';
-import LoanPlans from './pages/LoanPlans';
 import RoleIndex from './pages/Roles/RoleIndex';
 import RoleCreate, { roleCreateLoader } from './pages/Roles/RoleCreate';
 import RoleShow, { roleShowLoader } from './pages/Roles/RoleShow'
@@ -15,11 +14,14 @@ import UserEdit, { UserEditLoader } from './pages/Users/UserEdit';
 import LoanTypeIndex, { loanTypeIndexLoader } from './pages/LoanTypes/LoanTypeIndex';
 import LoanTypeCreate from './pages/LoanTypes/LoanTypeCreate';
 import LoanTypeShow, { loanTypeShowLoader } from './pages/LoanTypes/LoanTypeShow';
+import LoanGridIndex from './pages/LoanGrid/LoanGridIndex';
+import LoanGridCreate from './pages/LoanGrid/LoanGridCreate';
 
 import MainLayout from './layouts/MainLayout';
 import RoleLayout from './layouts/RoleLayout';
 import UserLayout from './layouts/UserLayout';
 import LoanTypeLayout from './layouts/LoanTypeLayout';
+import LoanGridLayout from './layouts/LoanGridLayout';
 import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
@@ -42,7 +44,11 @@ const router = createBrowserRouter(
             <Route path="edit" element={<LoanTypeEdit />} loader={loanTypeShowLoader} /> 
           </Route>
         </Route>
-        <Route path="loan-plans" element={<LoanPlans />} />
+        {/* loan grid routes */}
+        <Route path="loan-grid" element={<LoanGridLayout />}>
+          <Route index element={<LoanGridIndex />} />
+          <Route path="create" element={<LoanGridCreate />}/>
+        </Route>
         {/* role routes */}
         <Route path="roles" element={<RoleLayout />} >
           <Route index element={<RoleIndex />} loader={roleCreateLoader} />

@@ -11,9 +11,19 @@ const Login = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // redirect user if logged in
+    // redirect user if already logged in
     useEffect(() => {
-        
+        const fetchData = async() => {
+            try {
+                const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, { withCredentials: true });
+                if (user) {
+                    navigate('/dashboard');
+                }
+            } catch (error) {
+                throw error;
+            }
+        }
+        fetchData();
     }, [])
 
     const handleLogin = async e => {
