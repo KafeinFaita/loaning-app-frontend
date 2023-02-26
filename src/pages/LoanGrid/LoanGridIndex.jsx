@@ -68,7 +68,7 @@ const LoanGridIndex = () => {
                         <td className='border border-slate-800 px-2'>{grid.fixedDepositFactor}</td>
                         <td className='border border-slate-800 px-2'>{grid.processingFee}</td>
                         <td className='border border-slate-800 px-2'>
-                            <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete user</button>
+                            <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete</button>
                         </td>
                     </tr>
                 )

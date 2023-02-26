@@ -38,7 +38,7 @@ const LoanTypeIndex = () => {
                                 <td>{type.interestRate}%</td>
                                 <td>
                                     <Link to={type.loanTypeId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Full Details</Link>
-                                    <button className="text-white bg-gray-700 p-1 text-xs" type_id={type.loanTypeId} onClick={handleDelete}>Delete user</button>
+                                    <button className="text-white bg-gray-700 p-1 text-xs" type_id={type.loanTypeId} onClick={handleDelete}>Delete</button>
                                 </td>
                             </tr>
                         )      

@@ -29,7 +29,7 @@ const MobileNav = ({ links }) => {
             {links.map(link => {
                 const Icon = link.icon;
                 return(
-                    <NavLink to={link.url} onClick={handleNav} key={link.text}><Icon className="inline-block"/> {link.text}</NavLink>
+                    <NavLink to={link.url} end={link.url === '/'? true : false} onClick={handleNav} key={link.text}><Icon className="inline-block"/> {link.text}</NavLink>
                 )
                 
             })}

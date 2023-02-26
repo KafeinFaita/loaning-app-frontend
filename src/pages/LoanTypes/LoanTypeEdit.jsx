@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+import FormSubmit from '../../components/FormSubmit';
 
 const LoanTypeEdit = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const LoanTypeEdit = () => {
         <form onSubmit={handleSubmit}>
             <h1 className="text-lg font-bold">Create New Loan Type</h1>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-5 mb-11">
                 <label htmlFor="loanName">
                     Loan Type Name
                     <input type="text" name="name" id="loanName" className="border border-black block" defaultValue={loanType.name} />
@@ -42,7 +43,8 @@ const LoanTypeEdit = () => {
                 </label>
             </div>
             
-            <input type="submit" value="Submit" className="p-2 bg-gray-800 text-white mt-5"/>
+            {/* <input type="submit" value="Submit" className="p-2 bg-gray-800 text-white mt-5"/> */}
+            <FormSubmit value="Submit Changes"/>
 
         </form>
     )
