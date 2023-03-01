@@ -54,7 +54,7 @@ const RoleShow = () => {
     })}
             </ul>
 
-            <Link to="edit">Edit this role</Link>
+            <Link to="edit" className='p-2 bg-gray-700 inline-block text-white mt-5'>Edit this role</Link>
         </div>
     )
 }
