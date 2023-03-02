@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const RoleEdit = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     let checkboxRef = useRef([]);
+    const titleRef = useRef('');
     const [role, setRole] = useState(null);
 
     const privileges = [
@@ -69,17 +71,34 @@ const RoleEdit = () => {
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
+        e.preventDefault();
 
+        try {
+            const filteredPrivileges = checkboxRef.current.filter(box => box.checked).map(box => box.value);
+            const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/roles/${id}`, {
+                title: titleRef.current,
+                privileges: filteredPrivileges
+            }, { withCredentials: true })
+            console.log(response.data)
+            navigate('/dashboard/roles')
+            
+        } catch (error) {
+            throw error
+        }
+    }
+
+    const handleTitle = e => {
+        titleRef.current = e.target.value;
     }
 
     if (!role) return <h1>PLEASE WAIT</h1>
 
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="role_title">
-                    Role Title: <input type="text" name="title" id="role_title" className="border border-gray-800 rounded-lg" />
+                    Role Title: <input type="text" name="title" id="role_title" className="border border-gray-800 rounded-lg" defaultValue={role.title} onChange={handleTitle} />
                 </label>
 
                 <div>

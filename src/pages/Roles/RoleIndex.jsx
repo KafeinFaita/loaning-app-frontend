@@ -18,7 +18,7 @@ const Roles = () => {
                 <thead>
                     <tr>
                         <th>Role Title</th>
-                        <th>Actions (NOT FUNCTIONAL YET)</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
