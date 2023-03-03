@@ -1,14 +1,13 @@
 import { createBrowserRouter, Route, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import Login from "./pages/Login";
 import Home from './pages/Home';
-import Loans from './pages/Loans/LoanIndex';
 import Payments from './pages/Payments';
 import RoleIndex from './pages/Roles/RoleIndex';
 import RoleCreate, { roleCreateLoader } from './pages/Roles/RoleCreate';
 import RoleShow, { roleShowLoader } from './pages/Roles/RoleShow'
 import RoleEdit from './pages/Roles/RoleEdit';
 import UserIndex, { userIndexLoader } from './pages/Users/UserIndex';
-import UserShow, { userShowLoader } from './pages/Users/UserShow';
+import UserShow from './pages/Users/UserShow';
 import UserCreate from './pages/Users/UserCreate';
 import UserEdit, { UserEditLoader } from './pages/Users/UserEdit';
 import LoanTypeIndex, { loanTypeIndexLoader } from './pages/LoanTypes/LoanTypeIndex';
@@ -18,6 +17,7 @@ import LoanGridIndex from './pages/LoanGrid/LoanGridIndex';
 import LoanGridCreate from './pages/LoanGrid/LoanGridCreate';
 import LoanIndex from './pages/Loans/LoanIndex';
 import LoanCreate from './pages/Loans/LoanCreate';
+import LoanShow from './pages/Loans/LoanShow';
 
 import MainLayout from './layouts/MainLayout';
 import PageMainLayout from './layouts/PageMainLayout';
@@ -39,6 +39,9 @@ const router = createBrowserRouter(
         <Route path="loans" element={<PageMainLayout indexTitle="Your Loans" createTitle="Apply for Loan"/>} >
           <Route index element={<LoanIndex />} />
           <Route path="create" element={<LoanCreate />} />
+          <Route path=":id" element={<PageShowLayout />}>
+            <Route index element={<LoanShow />}/>
+          </Route>
         </Route>
         <Route path="payments" element={<Payments />} />
         {/* loan type routes */}

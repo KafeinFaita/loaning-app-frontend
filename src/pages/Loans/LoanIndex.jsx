@@ -42,7 +42,7 @@ const LoanIndex = () => {
                     return (
                         <tr>
                             <td>{loan.user.lastName}, {loan.user.firstName} {loan.user.middleName}</td>
-                            <td>{new Date(loan.createdAt).toLocaleString()}</td>
+                            <td>{loan.createdAt}</td>
                             <td>{loan.loanType.name}</td>
                             <td>{loan.status}</td>
                             <td>
