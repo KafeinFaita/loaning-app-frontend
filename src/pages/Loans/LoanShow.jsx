@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import LoadingScreen from "../../components/LoadingScreen";
 import FormSubmit from "../../components/FormSubmit";
@@ -8,6 +8,7 @@ const LoanShow = () => {
     const [loan, setLoan] = useState(null);
     const { id } = useParams();
     const textAreaRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,6 +33,19 @@ const LoanShow = () => {
 
     }
 
+    const handleSubmit = async e => {
+        e.preventDefault();
+        try {
+            const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, {
+                status: e.target.status.value,
+                disapproveReason: e.target.status.value === 'Disapproved' ? e.target.disapproveReason.value : null
+            }, { withCredentials: true });
+            navigate('/dashboard/loans')
+        } catch (error) {
+            throw error;
+        }
+    }
+
     if (!loan) return <LoadingScreen />
 
     return( 
@@ -45,10 +59,10 @@ const LoanShow = () => {
             <p>Maximum Payment Terms (In Years): {loan.grid.maxTerm}</p>
             <p>Processing Fee: Php {loan.grid.processingFee}</p>
 
-            <form className="mt-20">
+            <form className="mt-20" onSubmit={handleSubmit}>
                 <label htmlFor="status" className="block">
                     Loan Application Status:
-                    <select name="status" id="status" className="block mb-10 border border-gray-400" onChange={handleChange}>
+                    <select name="status" id="status" className="block mb-10 border border-gray-400" onChange={handleChange} defaultValue={loan.status}>
                         <option value="Received">Received</option>
                         <option value="Processing">Processing</option>
                         <option value="Approved">Approved</option>
@@ -56,9 +70,9 @@ const LoanShow = () => {
                     </select>
                 </label>
 
-                <label htmlFor="disapprovedReason" ref={textAreaRef} className="hidden">
+                <label htmlFor="disapproveReason" ref={textAreaRef} className="hidden">
                     Reason for Disapproval
-                    <textarea className="block w-56 border border-gray-400"></textarea>
+                    <textarea name="disapproveReason" className="block w-56 border border-gray-400" ></textarea>
                 </label>
 
                 <FormSubmit value="Update Status" />
