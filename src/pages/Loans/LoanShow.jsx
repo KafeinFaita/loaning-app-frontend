@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import LoadingScreen from "../../components/LoadingScreen";
 import FormSubmit from "../../components/FormSubmit";
@@ -77,6 +77,7 @@ const LoanShow = () => {
 
                 <FormSubmit value="Update Status" />
             </form>
+            <Link to="edit" className='p-2 bg-gray-700 inline-block text-white mt-5'>Edit This Loan</Link>
         </div>
 
        

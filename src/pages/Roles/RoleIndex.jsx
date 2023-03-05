@@ -1,9 +1,19 @@
 import { useNavigate, useLoaderData, Link } from "react-router-dom";
+import { useEffect, useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
 import axios from "axios";
 
 const Roles = () => {
     const roles = useLoaderData();
     const navigate = useNavigate();
+    const { checkUserPrivilege } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (checkUserPrivilege("roles_allow_view")) {
+            return;
+        }
+        navigate('/')
+    }, [])
 
     const handleDelete = async e => {
         const roleId = e.target.getAttribute('role_id');

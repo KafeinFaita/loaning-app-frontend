@@ -30,6 +30,7 @@ const Layout = () => {
                 const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
                     withCredentials: true
                 });
+                console.log(user.data)
                 setLoading(false);
                 setAuthUser(user.data);
             } catch (error) {
