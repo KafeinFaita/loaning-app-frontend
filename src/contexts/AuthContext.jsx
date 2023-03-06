@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [authUser, setAuthUser] = useState(null);
 
     // function to check if user is authorized to access a route
-    const checkUserPrivilege = (privilege) => {
+    const userHasPrivilege = (privilege) => {
         const userRole = authUser.roles.find(role => role.privileges.includes(privilege))
     
         if (userRole) {
@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authUser, setAuthUser, checkUserPrivilege }}>
+        <AuthContext.Provider value={{ authUser, setAuthUser, userHasPrivilege }}>
             {children}
         </AuthContext.Provider>
     )

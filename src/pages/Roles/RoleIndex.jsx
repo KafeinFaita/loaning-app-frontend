@@ -6,13 +6,13 @@ import axios from "axios";
 const Roles = () => {
     const roles = useLoaderData();
     const navigate = useNavigate();
-    const { checkUserPrivilege } = useContext(AuthContext);
+    const { userHasPrivilege } = useContext(AuthContext);
 
     useEffect(() => {
-        if (checkUserPrivilege("roles_allow_view")) {
-            return;
+        if (!userHasPrivilege("roles_allow_view")) {
+            navigate('/')
         }
-        navigate('/')
+        
     }, [])
 
     const handleDelete = async e => {

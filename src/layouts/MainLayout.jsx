@@ -17,13 +17,13 @@ const Layout = () => {
         { url: "", icon: FaHome, text: "Home" },
         { url: "loans", icon: FaHandHoldingUsd, text: "Loans" },
         { url: "payments", icon: FaMoneyBillWave, text: "Payments" },
-        { url: "loan-grid", icon: FaColumns, text: "Loan Grid" },
-        { url: "loan-types", icon: FaListAlt, text: "Loan Types" },
-        { url: "roles", icon: FaPeopleArrows, text: "Roles" },
-        { url: "users", icon: FaUser, text: "Users" }
+        { url: "loan-grid", icon: FaColumns, text: "Loan Grid", privilege: "loanplans_allow_view" },
+        { url: "loan-types", icon: FaListAlt, text: "Loan Types", privilege: "loantypes_allow_view"},
+        { url: "roles", icon: FaPeopleArrows, text: "Roles", privilege: "roles_allow_view" },
+        { url: "users", icon: FaUser, text: "Users", privilege: "users_allow_view" }
     ];
 
-    // check if user is logged in when app is re-mounted or refreshed
+    // check if user is logged in when app is mounted or refreshed
     useEffect(() => {
         const fetchData = async() => {
             try {

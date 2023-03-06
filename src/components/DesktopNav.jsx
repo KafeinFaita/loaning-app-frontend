@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 const DesktopNav = ({ links }) => {
+    const { userHasPrivilege } = useContext(AuthContext)
 
     return (
         <div className='max-md:hidden h-screen w-[30%] md:w-[30%] lg:w-[25%] xl:w-[20%] 2xl:w-[15%] py-8 pl-12 bg-blue-800 text-white'>
@@ -9,7 +12,13 @@ const DesktopNav = ({ links }) => {
                 {links.map(link => {
                 const Icon = link.icon;
                 return(
-                    <NavLink to={link.url} key={link.text} className={({ isActive }) => isActive ? "font-bold" : null}><Icon className="inline-block"/> {link.text}</NavLink>
+                    <NavLink 
+                        to={link.url} 
+                        key={link.text} 
+                        className={({ isActive }) => isActive ? `font-bold ${userHasPrivilege(link.privilege) ? null : 'hidden'}` : `${userHasPrivilege(link.privilege) ? null : 'hidden'}`}>
+                        
+                        <Icon className="inline-block"/> {link.text}
+                    </NavLink>
                 )
             })}
             </div>
