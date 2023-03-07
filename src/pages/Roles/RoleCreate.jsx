@@ -14,6 +14,18 @@ const RoleCreate = () => {
     const titleRef = useRef('');
 
     const privileges = [
+        // reports group
+        { name: "reports_allow_view", description: "Allow users with this role to view the Reports page", groupHead: true, group: "reports" },
+        // { name: "reports_allow_add", description: "Allow users with this role to add a new report in the database", group: "loans" },
+        // { name: "reports_allow_edit", description: "Allow users with this role to edit a loan", group: "loans" },
+        // { name: "reports_allow_delete", description: "Allow users with this role to delete loans from the database", group: "loans" },
+
+        //loans group
+        { name: "loans_allow_view", description: "Allow users with this role to view the Loans page", groupHead: true, group: "loans" },
+        { name: "loans_allow_add", description: "Allow users with this role to add a new loan in the database", group: "loans" },
+        { name: "loans_allow_edit", description: "Allow users with this role to edit a loan", group: "loans" },
+        { name: "loans_allow_delete", description: "Allow users with this role to delete loans from the database", group: "loans" },
+
         // payments group
         { name: "payments_allow_view", description: "Allow users with this role to view the Payments page", groupHead: true, group: "payments" },
         { name: "payments_allow_add", description: "Allow users with this role to add a new payment in the database", group: "payments" },

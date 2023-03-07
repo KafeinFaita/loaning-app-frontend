@@ -14,9 +14,9 @@ const Layout = () => {
     const [loading, setLoading] = useState(true);
     const { authUser, setAuthUser } = useContext(AuthContext);
     const links = [
-        { url: "", icon: FaHome, text: "Home" },
-        { url: "loans", icon: FaHandHoldingUsd, text: "Loans" },
-        { url: "payments", icon: FaMoneyBillWave, text: "Payments" },
+        { url: "", icon: FaHome, text: "Reports", privilege: "reports_allow_view"},
+        { url: "loans", icon: FaHandHoldingUsd, text: "Loans", privilege: "loans_allow_view" },
+        { url: "payments", icon: FaMoneyBillWave, text: "Payments", privilege: "payments_allow_view" },
         { url: "loan-grid", icon: FaColumns, text: "Loan Grid", privilege: "loanplans_allow_view" },
         { url: "loan-types", icon: FaListAlt, text: "Loan Types", privilege: "loantypes_allow_view"},
         { url: "roles", icon: FaPeopleArrows, text: "Roles", privilege: "roles_allow_view" },
