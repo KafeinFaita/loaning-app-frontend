@@ -1,20 +1,8 @@
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
-const AuthContext = createContext();
+const RoleContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-    const [authUser, setAuthUser] = useState(null);
-
-    // function to check if user is authorized to access a route
-    const userHasPrivilege = (privilege) => {
-        const userRole = authUser.roles.find(role => role.privileges.includes(privilege))
-    
-        if (userRole) {
-            return true;
-        }
-        return false;
-    }
-
+export const RoleProvider = ({ children }) => {
     const privileges = [
         // reports group
         { name: "reports_allow_view", description: "Allow users with this role to view the Reports page", groupHead: true, group: "reports" },
@@ -57,10 +45,10 @@ export const AuthProvider = ({ children }) => {
     ];
 
     return (
-        <AuthContext.Provider value={{ authUser, setAuthUser, privileges, userHasPrivilege }}>
+        <RoleContext.Provider value={{ privileges }}>
             {children}
-        </AuthContext.Provider>
+        </RoleContext.Provider>
     )
 }
 
-export default AuthContext;
+export default RoleContext;

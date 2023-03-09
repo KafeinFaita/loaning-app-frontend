@@ -19,6 +19,7 @@ import LoanIndex from './pages/Loans/LoanIndex';
 import LoanCreate from './pages/Loans/LoanCreate';
 import LoanShow from './pages/Loans/LoanShow';
 import LoanEdit from './pages/Loans/LoanEdit';
+import Profile from './pages/Profile';
 
 import MainLayout from './layouts/MainLayout';
 import PageMainLayout from './layouts/PageMainLayout';
@@ -30,6 +31,7 @@ import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
 import { AuthProvider } from './contexts/AuthContext';
+import { RoleProvider } from './contexts/RoleContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -61,7 +63,7 @@ const router = createBrowserRouter(
           <Route path="create" element={<LoanGridCreate />}/>
         </Route>
         {/* role routes */}
-        <Route path="roles" element={<RoleLayout />} >
+        <Route path="roles" element={<PageMainLayout indexTitle="Roles" createTitle="Create New Role"/>} >
           <Route index element={<RoleIndex />} loader={roleCreateLoader} />
           <Route path="create" element={<RoleCreate />} />
           <Route path=":id" element={<PageShowLayout />}  >
@@ -78,6 +80,7 @@ const router = createBrowserRouter(
           </Route>
           <Route path="create" element={<UserCreate /> } loader={roleCreateLoader} />
         </Route>
+        <Route path="profile" element={<Profile />}/>
       </Route>
     </>
     
