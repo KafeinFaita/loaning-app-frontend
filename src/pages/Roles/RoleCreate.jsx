@@ -15,8 +15,6 @@ const RoleCreate = () => {
     const titleRef = useRef('');
     const { privileges } = useContext(AuthContext);
 
-
-
     const handleSubmit = async e => {
         e.preventDefault();
 

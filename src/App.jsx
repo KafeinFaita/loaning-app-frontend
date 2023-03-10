@@ -20,6 +20,7 @@ import LoanCreate from './pages/Loans/LoanCreate';
 import LoanShow from './pages/Loans/LoanShow';
 import LoanEdit from './pages/Loans/LoanEdit';
 import Profile from './pages/Profile';
+import Error from './pages/Error';
 
 import MainLayout from './layouts/MainLayout';
 import PageMainLayout from './layouts/PageMainLayout';
@@ -43,7 +44,7 @@ const router = createBrowserRouter(
           <Route index element={<LoanIndex />} />
           <Route path="create" element={<LoanCreate />} />
           <Route path=":id" element={<PageShowLayout />}>
-            <Route index element={<LoanShow />}/>
+            <Route index element={<LoanShow />} errorElement={<Error />}/>
             <Route path="edit" element={<LoanEdit />} />
           </Route>
         </Route>

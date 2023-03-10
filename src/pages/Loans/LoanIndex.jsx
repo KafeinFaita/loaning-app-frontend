@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingScreen from "../../components/LoadingScreen";
+// import Error from '../Error';
 
 const LoanIndex = () => {
 
@@ -11,10 +12,10 @@ const LoanIndex = () => {
         const fetchData = async() => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans`, { withCredentials: true });
-                console.log(response.data)
+                console.log('no error')
                 setLoans(response.data);
             } catch (error) {
-                throw error
+                throw error;
             }   
         }
 

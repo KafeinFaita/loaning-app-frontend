@@ -14,10 +14,11 @@ const LoanShow = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, { withCredentials: true });
-                console.log(response.data)
+
+                console.log(response)
                 setLoan(response.data);
             } catch (error) {
-                
+                setLoan({});
             }
         }
 

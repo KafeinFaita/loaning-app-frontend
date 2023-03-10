@@ -1,5 +1,5 @@
 import { useLoaderData, Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import axios from 'axios'
 
@@ -12,6 +12,17 @@ export const roleShowLoader = async ({ params }) => {
 const RoleShow = () => {
     const role = useLoaderData();
     const { privileges } = useContext(AuthContext);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (role) {
+            setLoading(false)
+        }
+    }, [role])
+
+    if (loading) {
+        return <h1>LOADING...</h1>
+    }
     
     return (
         <div>
