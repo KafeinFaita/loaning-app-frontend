@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
+import LoadingScreen from '../../components/LoadingScreen';
 
 const RoleEdit = () => {
     const { id } = useParams();
@@ -9,15 +10,20 @@ const RoleEdit = () => {
     let checkboxRef = useRef([]);
     const titleRef = useRef('');
     const [role, setRole] = useState(null);
-    const { privileges } = useContext(AuthContext);
+    const { privileges, userHasPrivilege } = useContext(AuthContext);
 
     useEffect(() => {
+
+        if (!userHasPrivilege('roles_allow_edit')) {
+            navigate('/');
+        }
+
         const fetchData = async() => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${id}`);
                 setRole(response.data);
             } catch (error) {
-                
+                throw error;
             }
         }
         fetchData();
@@ -62,7 +68,7 @@ const RoleEdit = () => {
         titleRef.current = e.target.value;
     }
 
-    if (!role) return <h1>PLEASE WAIT</h1>
+    if (!role) return <LoadingScreen />
 
     return (
         <div>

@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import LoadingScreen from '../../components/LoadingScreen';
 import FormSubmit from '../../components/FormSubmit';
+import AuthContext from '../../contexts/AuthContext';
 
 const RoleEdit = () => {
     const navigate = useNavigate();
+    const { userHasPrivilege } = useContext(AuthContext);
     const { id } = useParams();
     const [loan, setLoan] = useState(null)
     const [grid, setGrid] = useState(null);
@@ -14,6 +16,10 @@ const RoleEdit = () => {
     const [loanData, setLoanData] = useState(null);
 
     useEffect(() => {
+        if(!userHasPrivilege('loans_allow_edit')) {
+            navigate('/');
+        }
+
         const fetchData = async() => {
             try {
                 const loan = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`);

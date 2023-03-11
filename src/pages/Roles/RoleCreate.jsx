@@ -1,4 +1,4 @@
-import { useRef, useContext } from 'react';
+import { useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from '../../contexts/AuthContext';
@@ -13,7 +13,13 @@ const RoleCreate = () => {
     const navigate = useNavigate();
     const checkboxRef = useRef([]);
     const titleRef = useRef('');
-    const { privileges } = useContext(AuthContext);
+    const { privileges, userHasPrivilege } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (!userHasPrivilege('roles_allow_add')) {
+            navigate('/');
+        }
+    }, [])
 
     const handleSubmit = async e => {
         e.preventDefault();

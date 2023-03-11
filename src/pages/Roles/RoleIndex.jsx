@@ -1,25 +1,50 @@
-import { useNavigate, useLoaderData, Link } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
+import LoadingScreen from "../../components/LoadingScreen";
 import axios from "axios";
 
 const Roles = () => {
-    const roles = useLoaderData();
     const navigate = useNavigate();
     const { userHasPrivilege } = useContext(AuthContext);
+    const [roles, setRoles] = useState(null);
 
     useEffect(() => {
         if (!userHasPrivilege("roles_allow_view")) {
             navigate('/')
         }
+
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`, { withCredentials: true });
+                console.log(response.data)
+                setRoles(response.data);
+            } catch (error) {
+                throw error
+            }
+        }
+
+        fetchData()
         
     }, [])
 
     const handleDelete = async e => {
         const roleId = e.target.getAttribute('role_id');
 
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/roles/${roleId}`, { withCredentials: true });
-        navigate('/dashboard/roles', { replace: true });
+        try {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/roles/${roleId}`, { withCredentials: true });
+            console.log(response.data)
+            
+            // remove the deleted role from the table
+            setRoles(prevRoles => prevRoles.filter(role => role.roleId !== roleId));
+            
+        } catch (error) {
+            throw error
+        } 
+    }
+
+    if (!roles) {
+        return <LoadingScreen />
     }
 
     return (
@@ -32,7 +57,7 @@ const Roles = () => {
                     </tr>
                 </thead>
                 <tbody>
-            {roles.data.map(role => {
+            {roles.map(role => {
                 return (
                     <tr key={role.roleId} className="bg-gray-400"> 
                         <td>{role.title}</td>

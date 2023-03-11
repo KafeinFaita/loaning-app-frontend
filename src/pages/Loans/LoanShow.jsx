@@ -1,16 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import LoadingScreen from "../../components/LoadingScreen";
 import FormSubmit from "../../components/FormSubmit";
+import AuthContext from "../../contexts/AuthContext";
 
 const LoanShow = () => {
     const [loan, setLoan] = useState(null);
     const { id } = useParams();
     const textAreaRef = useRef(null);
     const navigate = useNavigate();
+    const { userHasPrivilege } = useContext(AuthContext);
 
     useEffect(() => {
+        if (!userHasPrivilege('loans_allow_view')) {
+            navigate('/')
+        }
+
         const fetchData = async () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, { withCredentials: true });

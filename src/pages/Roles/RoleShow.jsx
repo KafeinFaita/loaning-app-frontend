@@ -1,6 +1,7 @@
-import { useLoaderData, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../contexts/AuthContext';
+import LoadingScreen from '../../components/LoadingScreen';
 import axios from 'axios'
 
 export const roleShowLoader = async ({ params }) => {
@@ -10,18 +11,31 @@ export const roleShowLoader = async ({ params }) => {
 }
 
 const RoleShow = () => {
-    const role = useLoaderData();
-    const { privileges } = useContext(AuthContext);
-    const [loading, setLoading] = useState(true);
+    const { id } = useParams();
+    const { privileges, userHasPrivilege } = useContext(AuthContext);
+    const [role, setRole] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (role) {
-            setLoading(false)
-        }
-    }, [role])
 
-    if (loading) {
-        return <h1>LOADING...</h1>
+        if (!userHasPrivilege('roles_allow_view')) {
+            navigate('/');
+        }
+
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${id}`, { withCredentials: true });
+                setRole(response.data);
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        fetchData();
+    }, [])
+
+    if (!role) {
+        return <LoadingScreen />
     }
     
     return (
