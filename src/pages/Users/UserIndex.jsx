@@ -1,9 +1,26 @@
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate, useLoaderData, Link } from 'react-router-dom';
+import LoadingScreen from '../../components/LoadingScreen';
+
 
 const Users = () => {
     const navigate = useNavigate();
-    const users = useLoaderData();
+    // const users = useLoaderData();
+    const [users, setUsers] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, { withCredentials: true })
+                setUsers(response.data);
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        fetchData();
+    }, [])
 
     const handleDelete = async e => {
         e.preventDefault();
@@ -16,6 +33,10 @@ const Users = () => {
         } catch (error) {
             throw error
         }
+    }
+
+    if (!users) {
+        return <LoadingScreen />
     }
 
     return (

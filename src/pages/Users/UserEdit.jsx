@@ -1,10 +1,15 @@
 import axios from 'axios';
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from "react-router-dom";
+import LoadingScreen from '../../components/LoadingScreen';
 
 const UserEdit = () => {
     const navigate = useNavigate();
-    const user = useLoaderData().user;
-    const roles = useLoaderData().roles;
+    const { id } = useParams();
+    // const user = useLoaderData().user;
+    // const roles = useLoaderData().roles;
+    const [user, setUser] = useState(null);
+    const [roles, setRoles] = useState(null);
     const userFields = [
         { title: "Username", nameId: "username", inputType: "text" },
         { title: "Password", nameId: "password", inputType: "password" },
@@ -15,6 +20,22 @@ const UserEdit = () => {
         { title: "E-mail Address", nameId: "email", inputType: "email" },
         
     ];
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${id}`, { withCredentials: true });
+                const roles = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`, { withCredentials: true });
+        
+                setUser(user.data);
+                setRoles(roles.data);
+            } catch (error) {
+                throw error
+            }
+        }
+
+        fetchData();
+    }, [])
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -42,6 +63,10 @@ const UserEdit = () => {
             throw error
         }
 
+    }
+
+    if (!roles) {
+        return <LoadingScreen />
     }
 
     return (

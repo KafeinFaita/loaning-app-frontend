@@ -1,9 +1,27 @@
 import axios from 'axios';
-import { useLoaderData, useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import LoadingScreen from '../../components/LoadingScreen';
 
 const LoanTypeIndex = () => {
-    const loanTypes = useLoaderData();
+    // const loanTypes = useLoaderData();
+    const [loanTypes, setLoanTypes] = useState(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`, { withCredentials: true });
+                console.log(response)
+        
+                setLoanTypes(response.data);
+            } catch (error) {
+                throw error
+            }
+        }
+
+        fetchData();
+    }, [])
 
     const handleDelete = async e => {
         e.preventDefault();
@@ -16,6 +34,10 @@ const LoanTypeIndex = () => {
         } catch (error) {
             throw error
         }
+    }
+
+    if (!loanTypes) {
+        return <LoadingScreen />
     }
 
     return (

@@ -50,7 +50,7 @@ const router = createBrowserRouter(
         <Route path="payments" element={<Payments />} />
         {/* loan type routes */}
         <Route path="loan-types" element={<LoanTypeLayout />}>
-          <Route index element={<LoanTypeIndex />} loader={loanTypeIndexLoader} />
+          <Route index element={<LoanTypeIndex />} />
           <Route path="create" element={<LoanTypeCreate />} />
           <Route path=":id" element={<PageShowLayout />}>
             <Route index element={<LoanTypeShow />} loader={loanTypeShowLoader} />
@@ -73,7 +73,7 @@ const router = createBrowserRouter(
         </Route>
         {/* user routes */}
         <Route path="users" element={<UserLayout />}>
-          <Route index element={<UserIndex />} loader={userIndexLoader} />
+          <Route index element={<UserIndex />} />
           <Route path=":id" element={<PageShowLayout />}>
             <Route index element={<UserShow /> } />
             <Route path="edit" element={<UserEdit />} loader={UserEditLoader} />
