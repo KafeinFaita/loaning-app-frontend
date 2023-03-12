@@ -4,12 +4,6 @@ import AuthContext from '../../contexts/AuthContext';
 import LoadingScreen from '../../components/LoadingScreen';
 import axios from 'axios'
 
-export const roleShowLoader = async ({ params }) => {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${params.id}`, { withCredentials: true });
-    console.log(response)
-    return response.data;
-}
-
 const RoleShow = () => {
     const { id } = useParams();
     const { privileges, userHasPrivilege } = useContext(AuthContext);

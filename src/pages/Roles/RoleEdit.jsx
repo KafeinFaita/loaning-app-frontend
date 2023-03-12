@@ -20,7 +20,8 @@ const RoleEdit = () => {
 
         const fetchData = async() => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${id}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles/${id}`, { withCredentials: true });
+                console.log(response.data)
                 setRole(response.data);
             } catch (error) {
                 throw error;

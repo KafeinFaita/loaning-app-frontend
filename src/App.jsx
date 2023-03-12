@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import Payments from './pages/Payments';
 import RoleIndex from './pages/Roles/RoleIndex';
 import RoleCreate, { roleCreateLoader } from './pages/Roles/RoleCreate';
-import RoleShow, { roleShowLoader } from './pages/Roles/RoleShow'
+import RoleShow from './pages/Roles/RoleShow'
 import RoleEdit from './pages/Roles/RoleEdit';
 import UserIndex, { userIndexLoader } from './pages/Users/UserIndex';
 import UserShow from './pages/Users/UserShow';
@@ -32,7 +32,6 @@ import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
 import { AuthProvider } from './contexts/AuthContext';
-import { RoleProvider } from './contexts/RoleContext';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
