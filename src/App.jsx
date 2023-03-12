@@ -65,11 +65,11 @@ const router = createBrowserRouter(
         </Route>
         {/* role routes */}
         <Route path="roles" element={<PageMainLayout indexTitle="Roles" createTitle="Create New Role"/>} >
-          <Route index element={<RoleIndex />} loader={roleCreateLoader} />
+          <Route index element={<RoleIndex />} />
           <Route path="create" element={<RoleCreate />} />
           <Route path=":id" element={<PageShowLayout />}  >
-            <Route index element={<RoleShow />} loader={roleShowLoader} />
-            <Route path="edit" element={<RoleEdit />} loader={roleShowLoader}/>
+            <Route index element={<RoleShow />}  />
+            <Route path="edit" element={<RoleEdit />} />
           </Route>
         </Route>
         {/* user routes */}
