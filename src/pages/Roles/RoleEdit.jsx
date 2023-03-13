@@ -54,7 +54,7 @@ const RoleEdit = () => {
         try {
             const filteredPrivileges = checkboxRef.current.filter(box => box.checked).map(box => box.value);
             const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/roles/${id}`, {
-                title: titleRef.current,
+                title: e.target.title.value,
                 privileges: filteredPrivileges
             }, { withCredentials: true })
             console.log(response.data)
@@ -75,7 +75,7 @@ const RoleEdit = () => {
         <div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="role_title">
-                    Role Title: <input type="text" name="title" id="role_title" className="border border-gray-800 rounded-lg" defaultValue={role.title} onChange={handleTitle} />
+                    Role Title: <input type="text" name="title" id="role_title" className="border border-gray-800 rounded-lg" defaultValue={role.title} ref={titleRef} onChange={handleTitle} />
                 </label>
 
                 <div>
