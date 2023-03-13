@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingScreen from '../../components/LoadingScreen';
 
 
 const Users = () => {
-    const navigate = useNavigate();
-    // const users = useLoaderData();
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
@@ -29,7 +27,7 @@ const Users = () => {
 
         try {
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${userId}`, { withCredentials: true });
-            navigate('/dashboard/users', { replace: true });
+            setUsers(prevUsers => prevUsers.filter(user => user.userId !== userId));
         } catch (error) {
             throw error
         }
@@ -70,17 +68,6 @@ const Users = () => {
             </table>
         </div>
     )
-}
-
-export const userIndexLoader = async () => {
-    try {
-        const users = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
-            withCredentials: true
-        });
-        return users.data;
-    } catch (error) {
-        throw error
-    }
 }
 
 export default Users;

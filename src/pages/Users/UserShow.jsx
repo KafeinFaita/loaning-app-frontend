@@ -43,13 +43,5 @@ const UserShow = () => {
     }
 }
 
-export const userShowLoader = async ({ params }) => {
-    try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${params.id}`);
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
 
 export default UserShow;

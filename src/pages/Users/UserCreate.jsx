@@ -1,9 +1,26 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import LoadingScreen from "../../components/LoadingScreen";
 
 const UserCreate = () => {
     const navigate = useNavigate();
-    const roles = useLoaderData();
+    const [roles, setRoles] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`, { withCredentials: true });
+                console.log(response.data)
+        
+                setRoles(response.data);
+            } catch (error) {
+                throw error
+            }
+        }
+
+        fetchData();
+    }, [])
 
     const userFields = [
         { title: "Username", nameId: "username", inputType: "text" },
@@ -13,7 +30,6 @@ const UserCreate = () => {
         { title: "Middle Name", nameId: "middleName", inputType: "text" },
         { title: "Complete Address", nameId: "address", inputType: "text" },
         { title: "E-mail Address", nameId: "email", inputType: "email" },
-        
     ];
 
     const handleSubmit = async e => {
@@ -37,12 +53,16 @@ const UserCreate = () => {
                 email: e.target.email.value,
                 roles
             }, { withCredentials: true });
-            console.log(response);
+
             navigate('/dashboard/users');
         } catch (error) {
             throw error
         }
 
+    }
+
+    if (!roles) {
+        return <LoadingScreen />
     }
 
     return (
@@ -59,7 +79,7 @@ const UserCreate = () => {
 }
             <div>
                 <p>Select roles for this user.</p>
-        {roles.data.map(role => {
+        {roles.map(role => {
             return (
                 <label htmlFor="role">
                     <input type="checkbox" name="role" value={role._id} />

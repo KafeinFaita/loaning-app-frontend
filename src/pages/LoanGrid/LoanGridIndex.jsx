@@ -28,9 +28,6 @@ const LoanGridIndex = () => {
         try {
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/loan-grid/${loanGridId}`, { withCredentials: true });
             setData(prevData => prevData.filter(item => item.loanGridId !== loanGridId));
-
-            // navigate('/dashboard/loan-grid', { replace: true });
-            // console.log('test')
         } catch (error) {
             throw error
         }

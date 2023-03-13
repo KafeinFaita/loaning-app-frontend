@@ -4,9 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import LoadingScreen from '../../components/LoadingScreen';
 
 const LoanTypeIndex = () => {
-    // const loanTypes = useLoaderData();
     const [loanTypes, setLoanTypes] = useState(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async() => {
@@ -30,7 +28,7 @@ const LoanTypeIndex = () => {
 
         try {
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/loan-types/${typeId}`, { withCredentials: true });
-            navigate('/dashboard/loan-types', { replace: true });
+            setLoanTypes(prevLoanTypes => prevLoanTypes.filter(type => type.loanTypeId !== typeId));
         } catch (error) {
             throw error
         }

@@ -6,8 +6,6 @@ import LoadingScreen from '../../components/LoadingScreen';
 const UserEdit = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    // const user = useLoaderData().user;
-    // const roles = useLoaderData().roles;
     const [user, setUser] = useState(null);
     const [roles, setRoles] = useState(null);
     const userFields = [
@@ -95,17 +93,6 @@ const UserEdit = () => {
             <input type="submit" value="Submit" className='block bg-gray-700 text-white p-2 mt-5'/>
         </form>
     )
-}
-
-export const UserEditLoader = async({ params }) => {
-    try {
-        const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${params.id}`);
-        const roles = await axios.get(`${import.meta.env.VITE_API_URL}/api/roles`);
-
-        return { user: user.data, roles: roles.data };
-    } catch (error) {
-        throw error
-    }
 }
 
 export default UserEdit;

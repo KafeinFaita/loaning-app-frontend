@@ -1,10 +1,25 @@
 import axios from 'axios';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import FormSubmit from '../../components/FormSubmit';
+import LoadingScreen from '../../components/LoadingScreen';
 
 const LoanTypeEdit = () => {
     const navigate = useNavigate();
-    const loanType = useLoaderData();
+    const [loanType, setLoanType] = useState(null);
+    const { id } = useParams();
+
+    useEffect(() => {
+        const fetchData = async() => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types/${id}`, { withCredentials: true });
+                setLoanType(response.data)
+            } catch (error) {
+                throw error;
+            }
+        }
+        fetchData();
+    }, [])
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -20,6 +35,10 @@ const LoanTypeEdit = () => {
         } catch (error) {
             throw error;
         }
+    }
+
+    if (!loanType) { 
+        return <LoadingScreen />
     }
 
     return (
