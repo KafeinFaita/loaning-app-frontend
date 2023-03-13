@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
         { name: "loans_allow_view", description: "Allow users with this role to view the Loans page", groupHead: true, group: "loans" },
         { name: "loans_allow_add", description: "Allow users with this role to add a new loan in the database", group: "loans" },
         { name: "loans_allow_edit", description: "Allow users with this role to edit a loan", group: "loans" },
+        { name: "loans_allow_update_status", description: "Allow users with this role to update a loan's status", group: "loans" },
         { name: "loans_allow_delete", description: "Allow users with this role to delete loans from the database", group: "loans" },
 
         // payments group
