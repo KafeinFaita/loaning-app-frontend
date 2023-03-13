@@ -22,9 +22,9 @@ const RoleEdit = () => {
 
         const fetchData = async() => {
             try {
-                const loan = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`);
-                const gridData = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-grid`);
-                const loanTypes = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`);
+                const loan = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, { withCredentials: true });
+                const gridData = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-grid`, { withCredentials: true });
+                const loanTypes = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`, { withCredentials: true });
 
                 setLoan(loan.data);
                 setGrid(gridData.data);

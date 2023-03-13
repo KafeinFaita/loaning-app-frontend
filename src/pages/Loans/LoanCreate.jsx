@@ -14,8 +14,10 @@ const LoanCreate = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const grid = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-grid`);
-                const loanTypes = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`);
+                const grid = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-grid`, { withCredentials: true });
+                const loanTypes = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`, { withCredentials: true });
+
+                console.log(grid.data)
 
                 setGrid(grid.data);
                 setLoanTypes(loanTypes.data);
