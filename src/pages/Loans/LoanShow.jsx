@@ -47,7 +47,7 @@ const LoanShow = () => {
                 status: e.target.status.value,
                 disapproveReason: e.target.status.value === 'Disapproved' ? e.target.disapproveReason.value : null
             }, { withCredentials: true });
-            navigate('/dashboard/loans')
+            navigate('/dashboard/loans/members')
         } catch (error) {
             throw error;
         }
@@ -57,6 +57,7 @@ const LoanShow = () => {
 
     return( 
         <div>
+            <h1>MEMBER LOAN DETAILS</h1>
             <p>Date of Loan Application: {loan.createdAtx}</p>
             <p>Member's Name: {loan.user.lastName}, {loan.user.firstName} {loan.user.middleName}</p>
             <p>Loan to Apply: {loan.loanType.name}</p>

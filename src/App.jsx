@@ -15,6 +15,7 @@ import LoanTypeCreate from './pages/LoanTypes/LoanTypeCreate';
 import LoanTypeShow from './pages/LoanTypes/LoanTypeShow';
 import LoanGridIndex from './pages/LoanGrid/LoanGridIndex';
 import LoanGridCreate from './pages/LoanGrid/LoanGridCreate';
+import LoanMembers from './pages/Loans/LoanMembers';
 import LoanIndex from './pages/Loans/LoanIndex';
 import LoanCreate from './pages/Loans/LoanCreate';
 import LoanShow from './pages/Loans/LoanShow';
@@ -32,14 +33,27 @@ import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
 import { AuthProvider } from './contexts/AuthContext';
 
+const links = {
+  loans: [
+    { url: "", title: "Your Loans" },
+    { url: "members", title: "Member Loans" },
+    { url: "create", title: "Apply for Loan" },
+  ],
+  roles: [
+    { url: "", title: "Roles" },
+    { url: "create", title: "Create New Role" },
+  ]
+}
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Login />}/> 
       <Route path="/dashboard" element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="loans" element={<PageMainLayout indexTitle="Your Loans" createTitle="Apply for Loan"/>} >
+        <Route path="loans" element={<PageMainLayout links={links.loans}/>} >
           <Route index element={<LoanIndex />} />
+          <Route path="members" element={<LoanMembers />}/>
           <Route path="create" element={<LoanCreate />} />
           <Route path=":id" element={<PageShowLayout />}>
             <Route index element={<LoanShow />} errorElement={<Error />}/>
@@ -62,7 +76,7 @@ const router = createBrowserRouter(
           <Route path="create" element={<LoanGridCreate />}/>
         </Route>
         {/* role routes */}
-        <Route path="roles" element={<PageMainLayout indexTitle="Roles" createTitle="Create New Role"/>} >
+        <Route path="roles" element={<PageMainLayout links={links.roles}/>} >
           <Route index element={<RoleIndex />} />
           <Route path="create" element={<RoleCreate />} />
           <Route path=":id" element={<PageShowLayout />}  >
