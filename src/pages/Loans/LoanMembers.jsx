@@ -1,17 +1,23 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import AuthContext from '../../contexts/AuthContext';
 import LoadingScreen from "../../components/LoadingScreen";
 // import Error from '../Error';
 
 const LoanMembers = () => {
-
+    const navigate = useNavigate();
+    const { userHasPrivilege } = useContext(AuthContext);
     const [loans, setLoans] = useState(null);
 
     useEffect(() => {
+        if (!userHasPrivilege('loans_allow_view_members')) {
+            return navigate('/');
+        }
+
         const fetchData = async() => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans`, { withCredentials: true });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/member`, { withCredentials: true });
                 console.log('no error')
                 setLoans(response.data);
             } catch (error) {

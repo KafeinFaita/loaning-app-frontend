@@ -58,7 +58,7 @@ const LoanShow = () => {
     return( 
         <div>
             <h1>MEMBER LOAN DETAILS</h1>
-            <p>Date of Loan Application: {loan.createdAtx}</p>
+            <p>Date of Loan Application: {loan.createdAt}</p>
             <p>Member's Name: {loan.user.lastName}, {loan.user.firstName} {loan.user.middleName}</p>
             <p>Loan to Apply: {loan.loanType.name}</p>
             <p>Loan Amount: {loan.loanAmount}</p>
@@ -67,7 +67,7 @@ const LoanShow = () => {
             <p>Maximum Payment Terms (In Years): {loan.grid.maxTerm}</p>
             <p>Processing Fee: Php {loan.grid.processingFee}</p>
 
-            <form className="mt-20" onSubmit={handleSubmit}>
+            <form className={`mt-20 ${userHasPrivilege('loans_allow_update_status') ? null : 'hidden'}`} onSubmit={handleSubmit}>
                 <label htmlFor="status" className="block">
                     Loan Application Status:
                     <select name="status" id="status" className="block mb-10 border border-gray-400" onChange={handleChange} defaultValue={loan.status}>

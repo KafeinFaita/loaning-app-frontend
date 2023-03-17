@@ -9,7 +9,7 @@ const LoanIndex = () => {
     useEffect(() => {
         const fetchData = async() => {
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/member`, { withCredentials: true });
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans`, { withCredentials: true });
                 console.log(response.data)
                 setLoans(response.data);
             } catch (error) {

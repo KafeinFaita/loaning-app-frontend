@@ -10,6 +10,7 @@ const LoanCreate = () => {
     const [loanTypes, setLoanTypes] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
     const [loanData, setLoanData] = useState(null);
+    const [amountError, setAmountError] = useState(false);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -35,11 +36,27 @@ const LoanCreate = () => {
 
     const handleLoanChange = e => {
         setLoanData(grid.find(data => e.target.value <= data.maxLoan));
+        console.log(selectedType)
+        if (!selectedType) {
+            console.log('no selected type')
+            return;
+        }
+
+        if (e.target.value > selectedType.maxLoanAmount) {
+            
+            return setAmountError(true);
+        }
+       setAmountError(false);
     }
 
     const handleSubmit = async e => {
+        e.preventDefault();
+        if (amountError) {
+            return;
+        }
+        
         try {
-            e.preventDefault();
+            
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/loans`, {
                 loanAmount: e.target.loanAmount.value,
                 loanType: e.target.loanType.value,
@@ -73,6 +90,7 @@ const LoanCreate = () => {
                 <label htmlFor="loanAmount">
                     Loan Amount
                     <input type="number" name="loanAmount" id="loanAmount" onChange={handleLoanChange} className="block border-2" required/>
+                    <p className='text-red-500 italic'>{amountError ? 'Value should not exceed the max loanable amount' : null}</p>
                 </label>
 
                 <p>Maximum Loanable Amount: {selectedType ? selectedType.maxLoanAmount : null}</p>

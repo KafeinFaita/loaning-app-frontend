@@ -2,10 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import LoadingScreen from "../../components/LoadingScreen";
+import Error from "../Error";
 
 const UserCreate = () => {
     const navigate = useNavigate();
     const [roles, setRoles] = useState(null);
+    const [error, setError] = useState(null);
+    const [hasFetchError, setHasFetchError] = useState(false);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -15,7 +18,7 @@ const UserCreate = () => {
         
                 setRoles(response.data);
             } catch (error) {
-                throw error
+                setHasFetchError(true)
             }
         }
 
@@ -23,11 +26,11 @@ const UserCreate = () => {
     }, [])
 
     const userFields = [
-        { title: "Username", nameId: "username", inputType: "text" },
-        { title: "Password", nameId: "password", inputType: "password" },
-        { title: "Last Name", nameId: "lastName", inputType: "text" },
-        { title: "First Name", nameId: "firstName", inputType: "text" },
-        { title: "Middle Name", nameId: "middleName", inputType: "text" },
+        { title: "Username", nameId: "username", inputType: "text", required: true },
+        { title: "Password", nameId: "password", inputType: "password", required: true },
+        { title: "Last Name", nameId: "lastName", inputType: "text", required: true },
+        { title: "First Name", nameId: "firstName", inputType: "text", required: true },
+        { title: "Middle Name", nameId: "middleName", inputType: "text", required: true },
         { title: "Complete Address", nameId: "address", inputType: "text" },
         { title: "E-mail Address", nameId: "email", inputType: "email" },
     ];
@@ -35,12 +38,14 @@ const UserCreate = () => {
     const handleSubmit = async e => {
         e.preventDefault();
 
-        console.log('inside submit ')
+        setError(null);
     
         //convert the checkbox nodelist into array, get the ones that are checked, and extract their values
         const roles = Array.from(e.target.role).filter(role => role.checked).map(role => role.value);
-
-        console.log(e.target.username)
+        console.log(roles)
+        if (roles.length < 1) {
+            return setError('Select at least one role');
+        }
        
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users`, {
@@ -56,7 +61,7 @@ const UserCreate = () => {
 
             navigate('/dashboard/users');
         } catch (error) {
-            throw error
+            setError(error.response.data.error);
         }
 
     }
@@ -65,18 +70,24 @@ const UserCreate = () => {
         return <LoadingScreen />
     }
 
+    if (hasFetchError) {
+        return <Error />
+    }
+
     return (
         <form className="flex flex-wrap gap-6 flex-col bg-red-100" onSubmit={handleSubmit}>
-{userFields.map(field => {
-    return (
-        <label htmlFor={field.nameId} className="w-full max-w-xs">
-            {field.title}
-            <input type={field.inputType} name={field.nameId} id={field.nameId} className="block border border-gray-800 w-full"/>
-        </label>   
-    )
-    })
+            <p className="text-red-500 italic">{error}</p>
+            
+    {userFields.map(field => {
+        return (
+            <label htmlFor={field.nameId} className="w-full max-w-xs">
+                {field.title}
+                <input type={field.inputType} name={field.nameId} id={field.nameId} className="block border border-gray-800 w-full" required={field.required}/>
+            </label>   
+        )
+        })
 
-}
+    }
             <div>
                 <p>Select roles for this user.</p>
         {roles.map(role => {

@@ -35,9 +35,9 @@ import { AuthProvider } from './contexts/AuthContext';
 
 const links = {
   loans: [
-    { url: "", title: "Your Loans" },
-    { url: "members", title: "Member Loans" },
-    { url: "create", title: "Apply for Loan" },
+    { url: "", title: "Your Loans", privilege: "loans_allow_view" },
+    { url: "members", title: "Member Loans", privilege: "loans_allow_view_members" },
+    { url: "create", title: "Apply for Loan", privilege: "loans_allow_add" },
   ],
   roles: [
     { url: "", title: "Roles" },

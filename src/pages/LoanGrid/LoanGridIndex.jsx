@@ -19,7 +19,7 @@ const LoanGridIndex = () => {
             }
         }
         fetchData();
-    }, [data]);
+    }, []);
 
     const handleDelete = async e => {
     
