@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import LoadingScreen from "../../components/LoadingScreen";
+import Table from "../../components/Table";
 import axios from "axios";
 
 const Roles = () => {
@@ -43,33 +44,27 @@ const Roles = () => {
         } 
     }
 
+    const tableHeaders = ['Role Title', 'Actions'];
+
     if (!roles) {
         return <LoadingScreen />
     }
 
     return (
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Role Title</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-            {roles.map(role => {
-                return (
-                    <tr key={role.roleId} className="bg-gray-400"> 
-                        <td>{role.title}</td>
-                        <td>
-                            <Link to={role.roleId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Role Details</Link>
-                            <button className="text-white bg-gray-700 p-1 text-xs" role_id={role.roleId} onClick={handleDelete}>Delete Role</button>
-                        </td>
-                    </tr>
-                )
-            })}     
-                </tbody>
-            </table>
+            <Table 
+                headers={tableHeaders}
+                body={roles.map(role => {
+                    const links = <>
+                        <Link to={role.roleId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Role Details</Link>
+                        <button className="text-white bg-gray-700 p-1 text-xs" role_id={role.roleId} onClick={handleDelete}>Delete Role</button>
+                    </>
+                    return [
+                        role.title,
+                        links
+                    ]
+                })}
+            />
         
         </div>
     )

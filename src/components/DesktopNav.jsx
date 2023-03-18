@@ -6,7 +6,7 @@ const DesktopNav = ({ links }) => {
     const { userHasPrivilege } = useContext(AuthContext)
 
     return (
-        <div className='max-md:hidden h-screen w-[30%] md:w-[30%] lg:w-[25%] xl:w-[20%] 2xl:w-[15%] py-8 pl-12 bg-blue-800 text-white'>
+        <div className='max-md:hidden max-h-full w-[30%] md:w-[30%] lg:w-[25%] xl:w-[20%] 2xl:w-[15%] py-8 pl-12 bg-blue-800 text-white'>
             <h1 className="text-xl mb-20">Loaning App</h1>
             <div className="flex flex-col gap-7">
                 {links.map(link => {

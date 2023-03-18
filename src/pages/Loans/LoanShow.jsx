@@ -7,8 +7,11 @@ import AuthContext from "../../contexts/AuthContext";
 
 const LoanShow = () => {
     const [loan, setLoan] = useState(null);
+    const [hasError, setHasError] = useState(false);
     const { id } = useParams();
-    const textAreaRef = useRef(null);
+    const textAreaRef = useRef();
+    const disapprovedReasonRef = useRef();
+    const statusSelectRef = useRef();
     const navigate = useNavigate();
     const { userHasPrivilege } = useContext(AuthContext);
 
@@ -42,6 +45,10 @@ const LoanShow = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        setHasError(false); 
+        if (e.target.status.value === 'Disapproved' && disapprovedReasonRef.current.value === '') {
+            return setHasError(true);
+        }
         try {
             const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, {
                 status: e.target.status.value,
@@ -67,10 +74,11 @@ const LoanShow = () => {
             <p>Maximum Payment Terms (In Years): {loan.grid.maxTerm}</p>
             <p>Processing Fee: Php {loan.grid.processingFee}</p>
 
-            <form className={`mt-20 ${userHasPrivilege('loans_allow_update_status') ? null : 'hidden'}`} onSubmit={handleSubmit}>
+            <form className={`mt-20 border border-gray-500 ${userHasPrivilege('loans_allow_update_status') ? null : 'hidden'}`} onSubmit={handleSubmit}>
+                <p className={`text-red-500 italic ${hasError ? null: 'hidden'}`}>Please specify reason for disapproval</p>
                 <label htmlFor="status" className="block">
                     Loan Application Status:
-                    <select name="status" id="status" className="block mb-10 border border-gray-400" onChange={handleChange} defaultValue={loan.status}>
+                    <select ref={statusSelectRef} name="status" id="status" className="block mb-10 border border-gray-400" onChange={handleChange} defaultValue={loan.status} required>
                         <option value="Received">Received</option>
                         <option value="Processing">Processing</option>
                         <option value="Approved">Approved</option>
@@ -78,9 +86,9 @@ const LoanShow = () => {
                     </select>
                 </label>
 
-                <label htmlFor="disapproveReason" ref={textAreaRef} className="hidden">
+                <label htmlFor="disapproveReason" ref={textAreaRef} className={statusSelectRef.current && statusSelectRef.current.value === 'Disapproved' ? null : 'hidden'}>
                     Reason for Disapproval
-                    <textarea name="disapproveReason" className="block w-56 border border-gray-400" ></textarea>
+                    <textarea name="disapproveReason" ref={disapprovedReasonRef} className="block w-56 border border-gray-400" ></textarea>
                 </label>
 
                 <FormSubmit value="Update Status" />

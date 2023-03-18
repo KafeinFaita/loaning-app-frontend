@@ -59,11 +59,11 @@ const Layout = () => {
     }
 
     return (
-        <div className="min-h-full">
+        <div className="h-full">
             <MobileNav links={links}/>
-            <div className="App flex h-full">
+            <div className="App flex min-h-full">
                 <DesktopNav links={links}/>
-                <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] grow h-full'>
+                <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] grow h-screen overflow-scroll'>
                     <div className="bg-gray-200 h-12 max-md:hidden flex items-center justify-end gap-2 pr-10">
                         <p>Welcome, <span className='font-bold'>{authUser.username}!</span></p> 
                         <button className='text-sm underline' onClick={handleLogout}>Logout</button>

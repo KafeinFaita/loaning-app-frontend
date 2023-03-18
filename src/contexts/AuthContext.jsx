@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
     const privileges = [
         // reports group
         { name: "reports_allow_view", description: "Allow users with this role to view the Reports page", groupHead: true, group: "reports" },
+        
         { name: "profile_allow_view", description: "Allow users with this role to view their Profile page", groupHead: true, group: "profile" },
         //loans group
         { name: "loans_allow_view", description: "Allow users with this role to view the Loans page", groupHead: true, group: "loans" },

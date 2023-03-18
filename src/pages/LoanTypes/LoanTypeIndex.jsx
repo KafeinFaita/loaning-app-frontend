@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import LoadingScreen from '../../components/LoadingScreen';
+import Table from '../../components/Table';
 
 const LoanTypeIndex = () => {
     const [loanTypes, setLoanTypes] = useState(null);
@@ -34,37 +35,29 @@ const LoanTypeIndex = () => {
         }
     }
 
+    const tableHeaders = ['Loan Type Name', 'Maximum Loanable Amount', 'Interest Rate', 'Actions']
+
     if (!loanTypes) {
         return <LoadingScreen />
     }
 
     return (
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Loan Type Name</th>
-                        <th>Maximum Loanable Amount</th>
-                        <th>Interest Rate</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody className='text-center'>
-                    {loanTypes.map(type => {
-                        return (
-                            <tr>  
-                                <td>{type.name}</td>
-                                <td>Php {type.maxLoanAmount}</td>
-                                <td>{type.interestRate}%</td>
-                                <td>
-                                    <Link to={type.loanTypeId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Full Details</Link>
-                                    <button className="text-white bg-gray-700 p-1 text-xs" type_id={type.loanTypeId} onClick={handleDelete}>Delete</button>
-                                </td>
-                            </tr>
-                        )      
-                    })}
-                </tbody>
-            </table>
+            <Table 
+                headers={tableHeaders}
+                body={loanTypes.map(type => {
+                    const links = <>
+                        <Link to={type.loanTypeId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Full Details</Link>
+                        <button className="text-white bg-gray-700 p-1 text-xs" type_id={type.loanTypeId} onClick={handleDelete}>Delete</button>
+                    </>
+                    return [
+                        type.name,
+                        `Php ${type.maxLoanAmount}`,
+                        type.interestRate,
+                        links
+                    ]
+                })}
+            />
 
         </div>
     )

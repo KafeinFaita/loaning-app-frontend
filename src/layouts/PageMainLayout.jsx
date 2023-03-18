@@ -11,7 +11,7 @@ const PageMainLayout = ({ links }) => {
                 {/* <NavLink to="" className="border border-gray-800 p-1">{indexTitle}</NavLink>
                 <NavLink to="create" className="border border-gray-800 p-1">{createTitle}</NavLink> */}
                 {links.map(link => {
-                    return <NavLink to={link.url} className={`border border-gray-800 p-1 ${userHasPrivilege(link.privilege) ? null : 'hidden'}`}>{link.title}</NavLink>
+                    return <NavLink to={link.url} className={`bg-gray-800 text-white font-medium p-2 mb-10 ${userHasPrivilege(link.privilege) ? null : 'hidden'}`}>{link.title}</NavLink>
                 })}
             </div>
             <Outlet />

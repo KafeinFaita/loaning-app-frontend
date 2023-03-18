@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from "../../components/LoadingScreen";
+import Table from '../../components/Table';
 
 const LoanGridIndex = () => {
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,8 @@ const LoanGridIndex = () => {
         }
     }
 
+    const tableHeaders = ['Minimum Loan Amount', 'Max Loan Amount', 'Max Payment Term', 'Number of Co-Makers', 'Years of Residency', 'Fixed Deposit Factor', 'Processing Fee', 'Action'];
+
     if (loading) {
         return (
             <LoadingScreen />
@@ -40,38 +43,23 @@ const LoanGridIndex = () => {
     }
     return (
         <div className='max-w-screen bg-yellow-200 overflow-scroll'>
-            <table className='border border-collapse border-slate-500'>
-                <thead>
-                    <tr>
-                        <th className='border border-slate-800'>Minimum Loan Amount</th>
-                        <th className='border border-slate-800'>Max Loan Amount</th>
-                        <th className='border border-slate-800'>Max Payment Term</th>
-                        <th className='border border-slate-800'>Number of Co-Makers</th>
-                        <th className='border border-slate-800'>Years of Residency</th>
-                        <th className='border border-slate-800'>Fixed Deposit Factor</th>
-                        <th className='border border-slate-800'>Processing Fee</th>
-                        <th className='border border-slate-800'>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-            {data.map(grid => {
-                return (
-                    <tr className='border border-slate-800'>
-                        <td className='border border-slate-800 px-2'>{grid.minLoan}</td>
-                        <td className='border border-slate-800 px-2'>{grid.maxLoan}</td>
-                        <td className='border border-slate-800 px-2'>{grid.maxTerm}</td>
-                        <td className='border border-slate-800 px-2'>{grid.coMakers}</td>
-                        <td className='border border-slate-800 px-2'>{grid.yearsOfResidency}</td>
-                        <td className='border border-slate-800 px-2'>{grid.fixedDepositFactor}</td>
-                        <td className='border border-slate-800 px-2'>{grid.processingFee}</td>
-                        <td className='border border-slate-800 px-2'>
-                            <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete</button>
-                        </td>
-                    </tr>
-                )
-            })}
-                </tbody>
-            </table>
+            <Table 
+                headers={tableHeaders}
+                body={data.map(grid => {
+                    const link = <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete</button>;
+
+                    return [
+                        grid.minLoan,
+                        grid.maxLoan,
+                        grid.maxTerm,
+                        grid.coMakers,
+                        grid.yearsOfResidency,
+                        grid.fixedDepositFactor,
+                        grid.processingFee,
+                        link
+                    ]
+                })}
+            />
         </div>
     )
 }   

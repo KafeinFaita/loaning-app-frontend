@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import LoadingScreen from '../../components/LoadingScreen';
+import Table from '../../components/Table';
 
 
 const Users = () => {
@@ -33,39 +34,30 @@ const Users = () => {
         }
     }
 
+    const headers = ['Username', 'Full Name', 'Address', 'Email', 'Actions'];
+
     if (!users) {
         return <LoadingScreen />
     }
 
     return (
         <div>
-            <table className='border border-collapse border-slate-500'>
-                <thead>
-                    <tr>
-                        <th className='border border-slate-800'>Username</th>
-                        <th className='border border-slate-800'>Full Name</th>
-                        <th className='border border-slate-800'>Address</th>
-                        <th className='border border-slate-800'>Email</th>
-                        <th className='border border-slate-800'>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-            {users.map(user => {
-                return (
-                    <tr className='border border-slate-800'>
-                        <td className='border border-slate-800 px-2'>{user.username}</td>
-                        <td className='border border-slate-800 px-2'>{user.lastName}, {user.firstName} {user.middleName}</td>
-                        <td className='border border-slate-800 px-2'>{user.address}</td>
-                        <td className='border border-slate-800 px-2'>{user.email}</td>
-                        <td className='border border-slate-800 px-2'>
-                            <Link to={user.userId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Full Details</Link>
-                            <button className="text-white bg-gray-700 p-1 text-xs" user_id={user.userId} onClick={handleDelete}>Delete user</button>
-                        </td>
-                    </tr>
-                )
-            })}
-                </tbody>
-            </table>
+            <Table 
+                headers={headers}
+                body={users.map(user => {
+                    const links = <>
+                        <Link to={user.userId} className="text-white bg-gray-700 p-1 text-xs mx-2">View Full Details</Link>
+                        <button className="text-white bg-gray-700 p-1 text-xs" user_id={user.userId} onClick={handleDelete}>Delete user</button>
+                    </>    
+                    return [
+                        user.username, 
+                        `${user.lastName}, ${user.firstName} ${user.middleName}`,
+                        user.address,
+                        user.email,
+                        links
+                    ]
+                })}
+            />
         </div>
     )
 }

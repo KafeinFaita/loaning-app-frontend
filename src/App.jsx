@@ -40,8 +40,16 @@ const links = {
     { url: "create", title: "Apply for Loan", privilege: "loans_allow_add" },
   ],
   roles: [
-    { url: "", title: "Roles" },
-    { url: "create", title: "Create New Role" },
+    { url: "", title: "Roles", privilege: "roles_allow_view" },
+    { url: "create", title: "Create New Role", privilege: "roles_allow_add" },
+  ],
+  loanGrids: [
+    { url: "", title: "Loan Grid", privilege: "roles_allow_view" },
+    { url: "create", title: "Create New Role", privilege: "roles_allow_add" },
+  ],
+  loanTypes: [
+    { url: "", title: "Loan Types", privilege: "loantypes_allow_view" },
+    { url: "create", title: "Create New Role", privilege: "loantypes_allow_add" },
   ]
 }
 
@@ -62,7 +70,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path="payments" element={<Payments />} />
         {/* loan type routes */}
-        <Route path="loan-types" element={<LoanTypeLayout />}>
+        <Route path="loan-types" element={<PageMainLayout links={links.loanTypes} />}>
           <Route index element={<LoanTypeIndex />} />
           <Route path="create" element={<LoanTypeCreate />} />
           <Route path=":id" element={<PageShowLayout />}>
