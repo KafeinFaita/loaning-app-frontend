@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import LoadingScreen from '../../components/LoadingScreen';
 import Table from '../../components/Table';
 
 const LoanIndex = () => {
+    const navigate = useNavigate();
     const [loans, setLoans] = useState(null);
 
     useEffect(() => {
@@ -14,7 +15,9 @@ const LoanIndex = () => {
                 console.log(response.data)
                 setLoans(response.data);
             } catch (error) {
-                throw error;
+                if (error.response.status === 401) {
+                    return navigate('/');
+                }
             }   
         }
 

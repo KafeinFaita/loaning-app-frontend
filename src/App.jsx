@@ -25,8 +25,6 @@ import Error from './pages/Error';
 
 import MainLayout from './layouts/MainLayout';
 import PageMainLayout from './layouts/PageMainLayout';
-import UserLayout from './layouts/UserLayout';
-import LoanTypeLayout from './layouts/LoanTypeLayout';
 import LoanGridLayout from './layouts/LoanGridLayout';
 import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';

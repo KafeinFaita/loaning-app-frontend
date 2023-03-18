@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 
 import MobileNav from '../components/MobileNav';
@@ -21,7 +21,6 @@ const Layout = () => {
         { url: "loan-types", icon: FaListAlt, text: "Loan Types", privilege: "loantypes_allow_view"},
         { url: "roles", icon: FaPeopleArrows, text: "Roles", privilege: "roles_allow_view" },
         { url: "users", icon: FaUser, text: "Users", privilege: "users_allow_view" },
-        { url: "profile", icon: FaUser, text: "Profile", privilege: "profile_allow_view" }
     ];
 
     // check if user is logged in when app is mounted or refreshed
@@ -31,7 +30,7 @@ const Layout = () => {
                 const user = await axios.get(`${import.meta.env.VITE_API_URL}/api/auth`, {
                     withCredentials: true
                 });
-                console.log(user.data)
+
                 setLoading(false);
                 setAuthUser(user.data);
             } catch (error) {
@@ -42,10 +41,11 @@ const Layout = () => {
         }
         fetchData();
         
-    }, [])
+    }, []);
 
     const handleLogout = async e => {
         try {
+            console.log('test')
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/auth`, { withCredentials: true });
             setAuthUser(null);
             navigate('/');
@@ -60,12 +60,13 @@ const Layout = () => {
 
     return (
         <div className="h-full">
-            <MobileNav links={links}/>
+            <MobileNav links={links} logoutHandler={handleLogout}/>
             <div className="App flex min-h-full">
                 <DesktopNav links={links}/>
                 <div className='w-full md:w-[70%] lg:w-[75%] xl:w-[80%] grow h-screen overflow-scroll'>
                     <div className="bg-gray-200 h-12 max-md:hidden flex items-center justify-end gap-2 pr-10">
                         <p>Welcome, <span className='font-bold'>{authUser.username}!</span></p> 
+                        <Link className='text-sm underline' to={`/dashboard/users/${authUser.userId}`}>Your Profile</Link>
                         <button className='text-sm underline' onClick={handleLogout}>Logout</button>
                     </div>
                     <Outlet />
