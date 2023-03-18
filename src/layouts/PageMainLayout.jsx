@@ -11,7 +11,17 @@ const PageMainLayout = ({ links }) => {
                 {/* <NavLink to="" className="border border-gray-800 p-1">{indexTitle}</NavLink>
                 <NavLink to="create" className="border border-gray-800 p-1">{createTitle}</NavLink> */}
                 {links.map(link => {
-                    return <NavLink to={link.url} className={`bg-gray-800 text-white font-medium p-2 mb-10 ${userHasPrivilege(link.privilege) ? null : 'hidden'}`}>{link.title}</NavLink>
+                    const styles = `text-white font-medium p-2 mb-10 ${userHasPrivilege(link.privilege) ? null : 'hidden'}`;
+                    return (
+                        <NavLink 
+                            end
+                            to={link.url} 
+                            className={({ isActive }) => isActive ? `bg-gray-700 ${styles}` : `bg-gray-500 ${styles}`}
+                        >
+                            {link.title}
+                        </NavLink>
+                        
+                    )
                 })}
             </div>
             <Outlet />

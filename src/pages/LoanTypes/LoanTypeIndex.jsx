@@ -53,7 +53,7 @@ const LoanTypeIndex = () => {
                     return [
                         type.name,
                         `Php ${type.maxLoanAmount}`,
-                        type.interestRate,
+                        `${type.interestRate}%`,
                         links
                     ]
                 })}

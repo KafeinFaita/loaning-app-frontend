@@ -13,6 +13,7 @@ const DesktopNav = ({ links }) => {
                 const Icon = link.icon;
                 return(
                     <NavLink 
+                        end={link.url === "" ? true : false}
                         to={link.url} 
                         key={link.text} 
                         className={({ isActive }) => isActive ? `font-bold ${userHasPrivilege(link.privilege) ? null : 'hidden'}` : `${userHasPrivilege(link.privilege) ? null : 'hidden'}`}>

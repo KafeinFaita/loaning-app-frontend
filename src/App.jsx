@@ -50,6 +50,10 @@ const links = {
   loanTypes: [
     { url: "", title: "Loan Types", privilege: "loantypes_allow_view" },
     { url: "create", title: "Create New Role", privilege: "loantypes_allow_add" },
+  ],
+  users: [
+    { url: "", title: "Users", privilege: "users_allow_view" },
+    { url: "create", title: "Create New User", privilege: "users_allow_add" },
   ]
 }
 
@@ -93,7 +97,7 @@ const router = createBrowserRouter(
           </Route>
         </Route>
         {/* user routes */}
-        <Route path="users" element={<UserLayout />}>
+        <Route path="users" element={<PageMainLayout links={links.users} />}>
           <Route index element={<UserIndex />} />
           <Route path=":id" element={<PageShowLayout />}>
             <Route index element={<UserShow /> } />

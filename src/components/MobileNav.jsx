@@ -5,7 +5,7 @@ import AuthContext from '../contexts/AuthContext';
 import { useContext } from 'react';
 
 const MobileNav = ({ links }) => {
-    const { authUser } = useContext(AuthContext);
+    const { authUser, userHasPrivilege } = useContext(AuthContext);
     const [nav, setNav] = useState(false);
 
     const handleNav = () => {
@@ -29,7 +29,7 @@ const MobileNav = ({ links }) => {
             {links.map(link => {
                 const Icon = link.icon;
                 return(
-                    <NavLink to={link.url} end={link.url === '/'? true : false} onClick={handleNav} key={link.text}><Icon className="inline-block"/> {link.text}</NavLink>
+                    <NavLink to={link.url} end={link.url === '/'? true : false} onClick={handleNav} key={link.text} className={userHasPrivilege(link.privilege) ? null : 'hidden'}><Icon className="inline-block"/> {link.text}</NavLink>
                 )
                 
             })}
