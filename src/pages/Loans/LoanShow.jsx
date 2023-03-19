@@ -83,6 +83,7 @@ const LoanShow = () => {
                         <option value="Processing">Processing</option>
                         <option value="Approved">Approved</option>
                         <option value="Disapproved">Disapproved</option>
+                        <option value="Released">Released</option>
                     </select>
                 </label>
 
