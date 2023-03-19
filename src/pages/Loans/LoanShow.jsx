@@ -7,6 +7,7 @@ import AuthContext from "../../contexts/AuthContext";
 
 const LoanShow = () => {
     const [loan, setLoan] = useState(null);
+    const [status, setStatus] = useState('');
     const [hasError, setHasError] = useState(false);
     const { id } = useParams();
     const textAreaRef = useRef();
@@ -24,7 +25,7 @@ const LoanShow = () => {
             try {
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/loans/${id}`, { withCredentials: true });
 
-                console.log(response)
+                setStatus(response.data.status);
                 setLoan(response.data);
             } catch (error) {
                 setLoan({});
@@ -87,9 +88,9 @@ const LoanShow = () => {
                     </select>
                 </label>
 
-                <label htmlFor="disapproveReason" ref={textAreaRef} className={statusSelectRef.current && statusSelectRef.current.value === 'Disapproved' ? null : 'hidden'}>
+                <label htmlFor="disapproveReason" ref={textAreaRef} className={status === 'Disapproved' ? null : 'hidden'}>
                     Reason for Disapproval
-                    <textarea name="disapproveReason" ref={disapprovedReasonRef} className="block w-56 border border-gray-400" ></textarea>
+                    <textarea name="disapproveReason" ref={disapprovedReasonRef} className="block w-56 border border-gray-400" defaultValue={loan.disapproveReason} ></textarea>
                 </label>
 
                 <FormSubmit value="Update Status" />
