@@ -25,7 +25,6 @@ import Error from './pages/Error';
 
 import MainLayout from './layouts/MainLayout';
 import PageMainLayout from './layouts/PageMainLayout';
-import LoanGridLayout from './layouts/LoanGridLayout';
 import PageShowLayout from './layouts/PageShowLayout';
 import LoanTypeEdit from './pages/LoanTypes/LoanTypeEdit';
 
@@ -42,8 +41,8 @@ const links = {
     { url: "create", title: "Create New Role", privilege: "roles_allow_add" },
   ],
   loanGrids: [
-    { url: "", title: "Loan Grid", privilege: "roles_allow_view" },
-    { url: "create", title: "Create New Role", privilege: "roles_allow_add" },
+    { url: "", title: "Loan Grid", privilege: "loangrid_allow_view" },
+    { url: "create", title: "New Loan Grid", privilege: "loangrid_allow_add" },
   ],
   loanTypes: [
     { url: "", title: "Loan Types", privilege: "loantypes_allow_view" },
@@ -81,7 +80,7 @@ const router = createBrowserRouter(
           </Route>
         </Route>
         {/* loan grid routes */}
-        <Route path="loan-grid" element={<LoanGridLayout />}>
+        <Route path="loan-grid" element={<PageMainLayout links={links.loanGrids} />}>
           <Route index element={<LoanGridIndex />} />
           <Route path="create" element={<LoanGridCreate />}/>
         </Route>

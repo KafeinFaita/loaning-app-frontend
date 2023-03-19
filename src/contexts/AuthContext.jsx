@@ -40,6 +40,12 @@ export const AuthProvider = ({ children }) => {
         { name: "loanplans_allow_edit", description: "Allow users with this role to edit a loan plan", group: "loanplans" },
         { name: "loanplans_allow_delete", description: "Allow users with this role to delete loan plans from the database", group: "loanplans" },
 
+        // loan grid
+        { name: "loangrid_allow_view", description: "Allow users with this role to view the Loan Grid page", groupHead: true, group: "loangrid" },
+        { name: "loangrid_allow_add", description: "Allow users with this role to add a new loan grid in the database", group: "loangrid" },
+        { name: "loangrid_allow_edit", description: "Allow users with this role to edit a loan grid", group: "loangrid" },
+        { name: "loangrid_allow_delete", description: "Allow users with this role to delete loan grid from the database", group: "loangrid" },
+
         // loan types group
         { name: "loantypes_allow_view", description: "Allow users with this role to view the Loan Types page", groupHead: true, group: "loantypes" },
         { name: "loantypes_allow_add", description: "Allow users with this role to add a new loan type in the database", group: "loantypes" },

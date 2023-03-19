@@ -34,7 +34,7 @@ const LoanGridIndex = () => {
         }
     }
 
-    const tableHeaders = ['Minimum Loan Amount', 'Max Loan Amount', 'Max Payment Term', 'Number of Co-Makers', 'Years of Residency', 'Fixed Deposit Factor', 'Processing Fee', 'Action'];
+    const tableHeaders = ['Minimum Loan Amount', 'Max Loan Amount', 'Max Payment Term', 'Number of Co-Makers', 'Years of Residency', 'Fixed Deposit Factor', 'Processing Fee'];
 
     if (loading) {
         return (
@@ -46,7 +46,7 @@ const LoanGridIndex = () => {
             <Table 
                 headers={tableHeaders}
                 body={data.map(grid => {
-                    const link = <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete</button>;
+                    // const link = <button className="text-white bg-gray-700 p-1 text-xs" grid_id={grid.loanGridId} onClick={handleDelete}>Delete</button>;
 
                     return [
                         grid.minLoan,
@@ -56,7 +56,7 @@ const LoanGridIndex = () => {
                         grid.yearsOfResidency,
                         grid.fixedDepositFactor,
                         grid.processingFee,
-                        link
+                      
                     ]
                 })}
             />
