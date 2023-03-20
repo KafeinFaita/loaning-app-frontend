@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Select from "react-select";
 import axios from 'axios';
 import LoadingScreen from '../../components/LoadingScreen';
 import FormSubmit from '../../components/FormSubmit';
@@ -7,20 +8,26 @@ import FormSubmit from '../../components/FormSubmit';
 const LoanCreate = () => {
     const navigate = useNavigate();
     const [grid, setGrid] = useState(null);
+    const [users, setUsers] = useState(null)
     const [loanTypes, setLoanTypes] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
     const [loanData, setLoanData] = useState(null);
+    const [coMakers, setCoMakers] = useState([]);
     const [amountError, setAmountError] = useState(false);
 
     useEffect(() => {
         const fetchData = async() => {
             try {
                 const grid = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-grid`, { withCredentials: true });
+                const users = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, { withCredentials: true });
                 const loanTypes = await axios.get(`${import.meta.env.VITE_API_URL}/api/loan-types`, { withCredentials: true });
 
-                console.log(grid.data)
+                console.log(users.data)
 
                 setGrid(grid.data);
+                setUsers(users.data.map(user => {
+                    return { value: user._id, label: `${user.lastName}, ${user.firstName} ${user.middleName} (${user.username})` }
+                }));
                 setLoanTypes(loanTypes.data);
             } catch (error) {
                 throw error;
@@ -49,24 +56,30 @@ const LoanCreate = () => {
        setAmountError(false);
     }
 
+    const handleComaker = (selectedUsers) => {
+        console.log(selectedUsers)
+        setCoMakers(selectedUsers.map(user => user.value))
+    }   
+
     const handleSubmit = async e => {
         e.preventDefault();
-        if (amountError) {
-            return;
-        }
+        console.log(coMakers)
+        // if (amountError) {
+        //     return;
+        // }
         
-        try {
+        // try {
             
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/loans`, {
-                loanAmount: e.target.loanAmount.value,
-                loanType: e.target.loanType.value,
-                grid: loanData._id
-            }, { withCredentials: true })
-            console.log(response.data)
-            navigate('/dashboard/loans');
-        } catch (error) {
-            throw error;
-        }
+        //     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/loans`, {
+        //         loanAmount: e.target.loanAmount.value,
+        //         loanType: e.target.loanType.value,
+        //         grid: loanData._id
+        //     }, { withCredentials: true })
+        //     console.log(response.data)
+        //     navigate('/dashboard/loans');
+        // } catch (error) {
+        //     throw error;
+        // }
         
     }
 
@@ -92,6 +105,17 @@ const LoanCreate = () => {
                     <input type="number" name="loanAmount" id="loanAmount" onChange={handleLoanChange} className="block border-2" required/>
                     <p className='text-red-500 italic'>{amountError ? 'Value should not exceed the max loanable amount' : null}</p>
                 </label>
+
+                <div>
+                    <p>Co-Makers {loanData ? `(Select ${loanData.coMakers})` : null}</p>
+                    <Select 
+                        options={loanData && coMakers.length >= loanData.coMakers ? [] : users} 
+                        isMulti 
+                        onChange={handleComaker} 
+                        isDisabled={loanData ? false : true}
+                    />
+                </div>
+                
 
                 <p>Maximum Loanable Amount: {selectedType ? selectedType.maxLoanAmount : null}</p>
                 <p>%Interest Rate Per Annum: {selectedType ? selectedType.interestRate : null}</p>
