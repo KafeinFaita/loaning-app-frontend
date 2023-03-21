@@ -13,7 +13,9 @@ const LoanCreate = () => {
     const [selectedType, setSelectedType] = useState(null);
     const [loanData, setLoanData] = useState(null);
     const [coMakers, setCoMakers] = useState([]);
+
     const [amountError, setAmountError] = useState(false);
+    const [coMakerError, setCoMakerError] = useState(false);
 
     useEffect(() => {
         const fetchData = async() => {
@@ -57,29 +59,37 @@ const LoanCreate = () => {
     }
 
     const handleComaker = (selectedUsers) => {
-        console.log(selectedUsers)
+   
         setCoMakers(selectedUsers.map(user => user.value))
+        if (selectedUsers.length === loanData.coMakers) {
+            setCoMakerError('');
+        }
     }   
 
     const handleSubmit = async e => {
         e.preventDefault();
         console.log(coMakers)
-        // if (amountError) {
-        //     return;
-        // }
+        if (amountError) {
+            return;
+        }
+
+        if (coMakers.length < loanData.coMakers || coMakers.length > loanData.coMakers) {
+            return setCoMakerError(true);
+        }
         
-        // try {
+        try {
             
-        //     const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/loans`, {
-        //         loanAmount: e.target.loanAmount.value,
-        //         loanType: e.target.loanType.value,
-        //         grid: loanData._id
-        //     }, { withCredentials: true })
-        //     console.log(response.data)
-        //     navigate('/dashboard/loans');
-        // } catch (error) {
-        //     throw error;
-        // }
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/loans`, {
+                loanAmount: e.target.loanAmount.value,
+                loanType: e.target.loanType.value,
+                grid: loanData._id,
+                coMakers
+            }, { withCredentials: true })
+            console.log(response.data)
+            navigate('/dashboard/loans');
+        } catch (error) {
+            throw error;
+        }
         
     }
 
@@ -114,6 +124,7 @@ const LoanCreate = () => {
                         onChange={handleComaker} 
                         isDisabled={loanData ? false : true}
                     />
+                    <p className='text-red-500 italic'>{loanData && coMakerError ? `Please select exactly ${loanData.coMakers} co-makers` : null}</p>
                 </div>
                 
 

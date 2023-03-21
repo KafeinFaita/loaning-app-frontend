@@ -75,6 +75,20 @@ const LoanShow = () => {
             <p>Maximum Payment Terms (In Years): {loan.grid.maxTerm}</p>
             <p>Processing Fee: Php {loan.grid.processingFee}</p>
 
+            <h2 className="my-4">Co-Makers:</h2>
+            {loan.coMakers.map(comaker => {
+
+                const coMakerName = `${comaker.lastName}, ${comaker.firstName} ${comaker.middleName}`;
+
+                if (userHasPrivilege('users_allow_view')) {
+                    return <Link to={`/dashboard/users/${comaker.userId}`} className='block text-blue-800 underline'>{coMakerName}</Link>
+                }
+                return (
+                    <p>{coMakerName}</p>
+                )
+                
+            })}
+
             <form className={`mt-20 border border-gray-500 ${userHasPrivilege('loans_allow_update_status') ? null : 'hidden'}`} onSubmit={handleSubmit}>
                 <p className={`text-red-500 italic ${hasError ? null: 'hidden'}`}>Please specify reason for disapproval</p>
                 <label htmlFor="status" className="block">
